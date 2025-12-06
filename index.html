@@ -135,7 +135,7 @@
             top: 5px;
         }
 
-        /* メニューモーダルの内容 */
+        /* メニューモーダルの内容 (高さ調整) */
         .menu-list {
             list-style: none;
             padding: 0;
@@ -144,16 +144,16 @@
             text-align: center;
         }
         .menu-list li {
-            margin: 15px 0; /* マージンを少し詰める */
+            margin: 10px 0; /* マージンをさらに詰める */
         }
         .menu-list a {
             text-decoration: none;
             color: var(--text-color);
-            font-size: 1.4rem; /* 1.8rem から 1.4rem に縮小 */
+            font-size: 1.4rem; 
             font-weight: 600;
-            display: flex; /* flexboxで縦に並べる */
+            display: flex; 
             flex-direction: column;
-            padding: 5px 10px;
+            padding: 5px 10px; /* パディングを削減 */
             border-bottom: 1px solid rgba(197, 180, 163, 0.3);
             transition: color 0.3s;
         }
@@ -161,37 +161,60 @@
             color: var(--accent-color);
         }
         .menu-list .jp-nav {
-            font-size: 0.8rem; /* 日本語の小見出しを追加 */
+            font-size: 0.8rem; 
             font-weight: 400;
             opacity: 0.8;
-            margin-top: 3px;
-            font-family: var(--font-jp); /* 日本語フォントを適用 */
+            margin-top: 2px; /* マージンを削減 */
+            font-family: var(--font-jp); 
         }
+
+        /* ヒーローセクション（トップ） */
+        .hero-img {
+            width: 80%;
+            height: 60vh;
+            object-fit: cover;
+            border-radius: 10px; /* 四角（角丸）に変更 */
+            margin-bottom: 2rem;
+            filter: brightness(0.95);
+        }
+        /* 既存のスタイル（変更なし） */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+        .hero-title { font-size: 2.5rem; font-style: italic; }
+        .hero-date { font-size: 1rem; margin-top: 10px; color: #888; }
+        section { padding: 80px 0; }
+        .section-title { font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
+        .section-title::after { content: ''; display: block; width: 40px; height: 1px; background: var(--accent-color); margin: 10px auto 0; }
+        .greeting-text { text-align: center; font-size: 0.95rem; }
+        .profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; }
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 1px solid var(--accent-color); padding: 5px; }
+        .profile-name { font-size: 1.5rem; font-family: var(--font-en); margin-bottom: 10px; }
+        .profile-desc { font-size: 0.9rem; text-align: justify; }
 
         /* Gallery (横スクロールに変更) */
         .gallery-wrap {
-            overflow-x: auto; /* 水平スクロールを有効にする */
-            white-space: nowrap; /* 子要素を折り返さない */
+            overflow-x: auto; 
+            white-space: nowrap; 
             padding-bottom: 15px;
-            -webkit-overflow-scrolling: touch; /* iOSでのスクロールをスムーズに */
+            -webkit-overflow-scrolling: touch; 
         }
         .gallery-grid {
-            display: inline-flex; /* グリッドを横並びにする */
-            gap: 10px; /* 項目間のスペース */
+            display: inline-flex; 
+            gap: 10px; 
             padding: 0 5px;
         }
         .gallery-item {
             display: inline-block;
-            width: 150px; /* 項目ごとの固定幅 */
+            width: 150px; 
             height: 150px;
-            flex-shrink: 0; /* 縮小させない */
+            flex-shrink: 0; 
         }
-        /* 写真の縦横サイズを不規則にする演出（微調整） */
         .gallery-item:nth-child(2n) {
-            height: 200px; /* 2枚ごとに縦長 */
+            height: 200px; 
         }
         .gallery-item:nth-child(3n) {
-            width: 250px; /* 3枚ごとに横長 */
+            width: 250px; 
             height: 150px;
         }
         .gallery-item img {
@@ -223,21 +246,49 @@
             color: #777;
         }
 
-        /* --- 既存のスタイル（変更なし） --- */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
-        .hero-img { width: 80%; height: 60vh; object-fit: cover; border-radius: 100px 100px 0 0; margin-bottom: 2rem; filter: brightness(0.95); }
-        .hero-title { font-size: 2.5rem; font-style: italic; }
-        .hero-date { font-size: 1rem; margin-top: 10px; color: #888; }
-        section { padding: 80px 0; }
-        .section-title { font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
-        .section-title::after { content: ''; display: block; width: 40px; height: 1px; background: var(--accent-color); margin: 10px auto 0; }
-        .greeting-text { text-align: center; font-size: 0.95rem; }
-        .profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; }
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 1px solid var(--accent-color); padding: 5px; }
-        .profile-name { font-size: 1.5rem; font-family: var(--font-en); margin-bottom: 10px; }
-        .profile-desc { font-size: 0.9rem; text-align: justify; }
+        /* Our Story (写真とコメントのブロック) 新規追加 */
+        .story-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+        /* 偶数番目は画像を右に配置 */
+        .story-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .story-img-box {
+            flex-basis: 40%;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .story-img-box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .story-content {
+            flex-basis: 60%;
+            font-size: 0.9rem;
+        }
+        .story-content h4 {
+            font-family: var(--font-en);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-align: left;
+            color: var(--accent-color);
+        }
+        .story-item:nth-child(even) .story-content {
+            text-align: right;
+        }
+        .story-content p {
+            margin: 0;
+        }
+
+
+        /* Photo Share, Footer (変更なし) */
         .share-text { text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
         .share-buttons { display: flex; flex-direction: column; gap: 20px; align-items: center; }
         .share-btn { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; max-width: 300px; padding: 15px 0; background-color: var(--accent-color); color: #fff; text-decoration: none; border-radius: 50px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(197, 180, 163, 0.4); }
@@ -294,6 +345,40 @@
                 特技はどこでも寝られること。<br>
                 一言：たくさん写真を撮ってくださいね♪
             </p>
+        </div>
+    </section>
+    
+    <section class="container fade-in" id="story">
+        <h2 class="section-title">Our Story</h2>
+
+        <div class="story-item">
+            <div class="story-img-box">
+                <img src="https://images.unsplash.com/photo-1529193678913-0e778b7f8c0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Story Photo 1">
+            </div>
+            <div class="story-content">
+                <h4>2022.05.20 | First Date</h4>
+                <p>初めて二人でキャンプに行った時の写真です。雨予報でしたが、奇跡的に晴れて最高の星空を見ることができました。ここから二人の関係が始まりました。</p>
+            </div>
+        </div>
+
+        <div class="story-item">
+            <div class="story-img-box">
+                <img src="https://images.unsplash.com/photo-1549491629-4d6d6a578a08?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Story Photo 2">
+            </div>
+            <div class="story-content">
+                <h4>2023.11.15 | Proposal</h4>
+                <p>モカの誕生日サプライズで旅行先の海辺でプロポーズしました。緊張しすぎて何を言ったか覚えていませんが、指輪を渡した瞬間、泣きながら「はい」と言ってくれた時は感動しました。</p>
+            </div>
+        </div>
+
+        <div class="story-item">
+            <div class="story-img-box">
+                <img src="https://images.unsplash.com/photo-1534579930776-be0d2e2491b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Story Photo 3">
+            </div>
+            <div class="story-content">
+                <h4>2024.03.01 | Together</h4>
+                <p>二人で暮らし始めた記念に撮った一枚。家具を選ぶのは大変でしたが、二人だけの空間ができて毎日が楽しくなりました。これからもたくさん笑い合って過ごしたいです。</p>
+            </div>
         </div>
     </section>
 
@@ -361,6 +446,7 @@
                     <li><a href="#top">TOP<span class="jp-nav">トップ</span></a></li>
                     <li><a href="#greeting">GREETING<span class="jp-nav">ごあいさつ</span></a></li>
                     <li><a href="#profile">PROFILE<span class="jp-nav">プロフィール</span></a></li>
+                    <li><a href="#story">OUR STORY<span class="jp-nav">二人の物語</span></a></li>
                     <li><a href="#memories">MEMORIES<span class="jp-nav">思い出の写真</span></a></li>
                     <li><a href="#seating-chart">SEATING CHART<span class="jp-nav">席次表</span></a></li>
                     <li><a href="#share-photos">SHARE PHOTOS<span class="jp-nav">写真の共有</span></a></li>
