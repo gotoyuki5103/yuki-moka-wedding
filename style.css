@@ -91,6 +91,36 @@ section { padding: 80px 0; }
 .dots-container { text-align: center; margin-top: 20px; }
 .dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
 .active-dot { background-color: var(--accent-color); }
+/* ★★★ ここを追加/修正（style.cssに追記） ★★★ */
+/* 左右の矢印ボタン */
+.prev-arrow, .next-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.5); /* 背景を半透明にして見やすくする */
+  z-index: 10;
+}
+
+/* 右矢印の位置調整と角丸 */
+.next-arrow {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* ホバー時の見た目（PC用だが、モバイルでもタッチ時に変化） */
+.prev-arrow:hover, .next-arrow:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
 
 /* Seating Chart */
 .seating-chart-area { text-align: center; }
