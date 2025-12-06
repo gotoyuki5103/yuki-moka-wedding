@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Profile Book | Yuki & Moka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ================================== */
+        /* CSS (デザインとレイアウト) */
+        /* ================================== */
+
+        /* --- ベース設定 --- */
+        :root {
+            --bg-color: #FDFCF8; /* オフホワイト */
+            --text-color: #4A4A4A; /* ダークグレー */
+            --accent-color: #C5B4A3; /* グレージュ */
+            --font-en: 'Cormorant Garamond', serif;
+            --font-jp: 'Shippori Mincho', serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-jp);
+            margin: 0;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-en);
+            font-weight: 400;
+            margin: 0;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 600px; /* スマホで見やすい幅 */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- フェードインアニメーション --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- ヒーローセクション（トップ） --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-img {
+            width: 80%;
+            height: 60vh;
+            object-fit: cover;
+            border-radius: 100px 100px 0 0; /* アーチ型 */
+            margin-bottom: 2rem;
+            filter: brightness(0.95);
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            font-style: italic;
+        }
+        .hero-date {
+            font-size: 1rem;
+            margin-top: 10px;
+            color: #888;
+        }
+
+        /* --- セクション共通 --- */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        /* --- Greeting --- */
+        .greeting-text {
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* --- Profile --- */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 1px solid var(--accent-color);
+            padding: 5px;
+        }
+        .profile-name {
+            font-size: 1.5rem;
+            font-family: var(--font-en);
+            margin-bottom: 10px;
+        }
+        .profile-desc {
+            font-size: 0.9rem;
+            text-align: justify;
+        }
+
+        /* --- Gallery (Masonry風) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        /* 写真の縦横サイズを不規則にする演出 */
+        .gallery-item:nth-child(3n) {
+            grid-column: span 2; /* 3枚ごとに大きく表示 */
+        }
+        
+        /* --- Photo Share Section --- */
+        .share-text {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .share-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .share-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 300px; /* ボタンの横幅 */
+            padding: 15px 0;
+            background-color: var(--accent-color); /* グレージュ */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px; /* 丸みのあるボタン */
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(197, 180, 163, 0.4);
+        }
+
+        .share-btn:active {
+            transform: scale(0.98);
+        }
+
+        .share-btn span:first-child {
+            font-family: var(--font-en);
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+        
+        .share-btn .jp-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-top: 2px;
+            font-family: var(--font-jp);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            font-family: var(--font-en);
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="hero container fade-in">
+        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding Couple" class="hero-img">
+        
+        <h1 class="hero-title">Yuki & Moka</h1>
+        <p class="hero-date">2026.04.11 | Hotel Chinzanso Tokyo</p>
+    </header>
+
+    <section class="container fade-in">
+        <h2 class="section-title">Greeting</h2>
+        <div class="greeting-text">
+            <p>本日はご多用の中<br>私たちの結婚式にご参列いただき<br>誠にありがとうございます。</p>
+            <p>皆様に支えられ<br>今日という日を迎えることができました。</p>
+            <p>ささやかながら<br>感謝の気持ちを込めて<br>プロフィールブックを作成しました。</p>
+            <p>どうぞごゆっくりお楽しみください。</p>
+        </div>
+    </section>
+
+    <section class="container fade-in">
+        <h2 class="section-title">Profile</h2>
+        
+        <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Groom" class="profile-img">
+            <h3 class="profile-name">Yuki Tanaka</h3> 
+            <p class="profile-desc">
+                1995年生まれ、東京都出身。<br>
+                趣味はキャンプとコーヒー。<br>
+                休日は美味しい豆を探してカフェ巡りをしています。<br>
+                一言：今日は最高の1日にしましょう！
+            </p>
+        </div>
+
+        <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Bride" class="profile-img">
+            <h3 class="profile-name">Moka Suzuki</h3>
+            <p class="profile-desc">
+                1996年生まれ、神奈川県出身。<br>
+                趣味は映画鑑賞と旅行。<br>
+                特技はどこでも寝られること。<br>
+                一言：たくさん写真を撮ってくださいね♪
+            </p>
+        </div>
+    </section>
+
+    <section class="container fade-in">
+        <h2 class="section-title">Our Memories</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560982-1356c11d4606?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1520854221256-17451cc330e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""></div>
+        </div>
+    </section>
+    
+    <section class="container fade-in">
+        <h2 class="section-title">Share Photos</h2>
+        <div class="share-text">
+            <p>本日の思い出の写真を<br>ぜひここからシェアしてください。<br>グループごとにアルバムを用意しました。</p>
+        </div>
+        
+        <div class="share-buttons">
+            <a href="https://photos.app.goo.gl/xxxxxxxxxxxx" target="_blank" class="share-btn">
+                <span>For Friends</span>
+                <span class="jp-label">友人・同僚の方はこちら</span>
+            </a>
+
+            <a href="https://photos.app.goo.gl/yyyyyyyyyyyy" target="_blank" class="share-btn">
+                <span>For Family</span>
+                <span class="jp-label">親族の方はこちら</span>
+            </a>
+
+            <a href="https://photos.app.goo.gl/zzzzzzzzzzzz" target="_blank" class="share-btn">
+                <span>All Guests</span>
+                <span class="jp-label">その他の方はこちら</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Thank you for coming today.</p>
+        <p>Yuki & Moka</p>
+    </footer>
+
+    <script>
+        // ==================================
+        // JavaScript (スクロールアニメーション)
+        // ==================================
+        
+        // 画面に要素が入ったらフェードインさせる処理
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // 一度表示されたら監視をやめる（パフォーマンス向上のため）
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { 
+            // ターゲット要素が画面内に0.1（10%）入ったら実行
+            threshold: 0.1 
+        });
+
+        // 'fade-in'クラスを持つすべての要素を監視対象にする
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
