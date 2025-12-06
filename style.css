@@ -1,0 +1,127 @@
+/* ================================== */
+/* CSS (デザインとレイアウト) */
+/* ================================== */
+
+/* --- ベース設定 --- */
+:root {
+    --bg-color: #FDFCF8; /* オフホワイト */
+    --text-color: #4A4A4A; /* ダークグレー */
+    --accent-color: #C5B4A3; /* グレージュ */
+    --font-en: 'Cormorant Garamond', serif;
+    --font-jp: 'Shippori Mincho', serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-jp);
+    margin: 0;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-en);
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    max-width: 600px; /* スマホで見やすい幅 */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 既存要素（省略） --- */
+.menu-btn { position: fixed; top: 20px; right: 20px; z-index: 100; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.8); border: 1px solid var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.3s; }
+.menu-btn span { font-size: 1.5rem; color: var(--text-color); line-height: 1; }
+.modal { display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+.modal.is-active { display: flex; }
+.modal-content { background-color: var(--bg-color); padding: 20px; border-radius: 8px; max-width: 90%; max-height: 90%; position: relative; overflow-y: auto; }
+#imgModalContent { background: none; padding: 0; width: auto; height: auto; }
+#imgModalContent img { max-width: 100vw; max-height: 100vh; display: block; object-fit: contain; }
+.close-btn { color: #fff; position: absolute; top: 10px; right: 25px; font-size: 35px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 210; }
+#menuModal .close-btn { color: var(--text-color); right: 15px; top: 5px; }
+.menu-list { list-style: none; padding: 0; margin: 0; font-family: var(--font-en); text-align: center; }
+.menu-list li { margin: 10px 0; }
+.menu-list a { text-decoration: none; color: var(--text-color); font-size: 1.4rem; font-weight: 600; display: flex; flex-direction: column; padding: 5px 10px; border-bottom: 1px solid rgba(197, 180, 163, 0.3); transition: color 0.3s; }
+.menu-list a:hover { color: var(--accent-color); }
+.menu-list .jp-nav { font-size: 0.8rem; font-weight: 400; opacity: 0.8; margin-top: 2px; font-family: var(--font-jp); }
+
+/* ヒーローセクション */
+.hero-img { width: 80%; height: 60vh; object-fit: cover; border-radius: 10px; margin-bottom: 2rem; filter: brightness(0.95); }
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+.hero-title { font-size: 2.5rem; font-style: italic; }
+.hero-date { font-size: 1rem; margin-top: 10px; color: #888; }
+section { padding: 80px 0; }
+.section-title { font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
+.section-title::after { content: ''; display: block; width: 40px; height: 1px; background: var(--accent-color); margin: 10px auto 0; }
+.greeting-text { text-align: center; font-size: 0.95rem; }
+.profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; }
+.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 1px solid var(--accent-color); padding: 5px; }
+.profile-name { font-size: 1.5rem; font-family: var(--font-en); margin-bottom: 10px; }
+.profile-desc { font-size: 0.9rem; text-align: justify; }
+
+/* Our Story */
+.story-item { display: flex; align-items: center; margin-bottom: 40px; gap: 20px; }
+.story-item:nth-child(even) { flex-direction: row-reverse; }
+.story-img-box { flex-basis: 40%; flex-shrink: 0; position: relative; }
+.story-img-box img { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; }
+.story-content { flex-basis: 60%; font-size: 0.9rem; }
+.story-content h4 { font-family: var(--font-en); font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; text-align: left; color: var(--accent-color); }
+.story-item:nth-child(even) .story-content { text-align: right; }
+.story-content p { margin: 0; }
+
+/* Slideshow / Gallery */
+.slideshow-container { max-width: 560px; position: relative; margin: auto; }
+.mySlides { display: none; text-align: center; }
+.mySlides img { width: 100%; height: 350px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.fade-slide { -webkit-animation-name: fade; -webkit-animation-duration: 1.5s; animation-name: fade; animation-duration: 1.5s; }
+@-webkit-keyframes fade { from {opacity: .4} to {opacity: 1} }
+@keyframes fade { from {opacity: .4} to {opacity: 1} }
+.dots-container { text-align: center; margin-top: 20px; }
+.dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+.active-dot { background-color: var(--accent-color); }
+
+/* Seating Chart */
+.seating-chart-area { text-align: center; }
+.seating-chart-area img { width: 90%; max-width: 400px; margin: 0 auto; border: 2px solid var(--accent-color); border-radius: 8px; cursor: pointer; transition: opacity 0.3s; }
+.seating-chart-area img:hover { opacity: 0.8; }
+.seating-chart-area p { font-size: 0.9rem; margin-top: 15px; color: #777; }
+
+/* Photo Share Section (中央揃え修正) */
+.share-text { text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
+.share-buttons { 
+    /* 修正点: Flexコンテナの幅を親要素に合わせ、要素を中央に寄せる */
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    align-items: center; /* 内部のボタンを水平中央に配置 */
+    max-width: 300px; /* ボタン群の幅を制限 */
+    margin: 0 auto; /* ★★★ コンテナ自体を中央に配置する修正 ★★★ */
+}
+.share-btn { 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    width: 100%; /* 親要素のmax-width: 300pxに依存 */
+    padding: 15px 0; 
+    background-color: var(--accent-color); 
+    color: #fff; text-decoration: none; 
+    border-radius: 50px; 
+    transition: transform 0.2s, background-color 0.2s; 
+    box-shadow: 0 4px 10px rgba(197, 180, 163, 0.4); 
+}
+.share-btn:active { transform: scale(0.98); }
+.share-btn span:first-child { font-family: var(--font-en); font-size: 1.2rem; line-height: 1.2; }
+.share-btn .jp-label { font-size: 0.75rem; opacity: 0.9; margin-top: 2px; font-family: var(--font-jp); }
+
+/* Footer */
+footer { text-align: center; padding: 50px 0; font-family: var(--font-en); font-size: 0.8rem; color: #aaa; }
