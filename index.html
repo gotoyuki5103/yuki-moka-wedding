@@ -195,43 +195,55 @@
         // JavaScript (スライドショー、スクロールアニメーション & モーダル)
         // ==================================
         
-        // --- 1. Slideshow ---
-        let slideIndex = 0;
+         // --- 1. Slideshow ---
+        let slideIndex = 1; // 1から始めるように修正
         let slideTimer;
-        let startX = 0; // スワイプ開始位置
+        let startX = 0; 
 
-        function showSlides() {
+        // 前後のスライドに移動する関数を追加（矢印ボタンから呼び出される）
+        function plusSlides(n) {
+            clearTimeout(slideTimer);
+            showSlides(slideIndex += n);
+        }
+
+        // ドットから直接スライドに移動する関数を修正
+        function currentSlide(n) {
+            clearTimeout(slideTimer);
+            showSlides(slideIndex = n);
+        }
+
+        // スライドの表示とタイマーを設定するメイン関数をリファクタリング
+        function showSlides(n) {
             let i;
             const slides = document.getElementsByClassName("mySlides");
             const dots = document.getElementsByClassName("dot");
 
+            // スライドインデックスのループ処理（最後→最初、最初→最後）
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            
+            // 全てのスライドを非表示にし、ドットを非アクティブ化
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";  
-            }
-            
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            
-            for (i = 0; i < dots.length; i++) {
                 dots[i].className = dots[i].className.replace(" active-dot", "");
             }
             
+            // 現在のスライドを表示し、ドットをアクティブ化
             slides[slideIndex-1].style.display = "block";  
             dots[slideIndex-1].className += " active-dot";
             
+            // 自動再生タイマーの再設定
             clearTimeout(slideTimer);
-            slideTimer = setTimeout(showSlides, 4000); 
+            slideTimer = setTimeout(function() {
+                showSlides(slideIndex += 1);
+            }, 4000); 
         }
 
-        function currentSlide(n) {
-          slideIndex = n;
-          slideIndex--; 
-          showSlides();
-        }
-        
-        showSlides();
+        // 初回実行
+        showSlides(slideIndex);
 
-        // スワイプ操作の追加
+
+        // スワイプ操作の修正（plusSlidesを利用するように修正）
         const slideshowContainer = document.getElementById('slideshow');
         
         slideshowContainer.addEventListener('touchstart', function(event) {
@@ -244,14 +256,16 @@
             const threshold = 50; 
             
             if (startX - endX > threshold) {
-                currentSlide(slideIndex + 1); 
+                plusSlides(1); // 次のスライド
             } else if (endX - startX > threshold) {
-                currentSlide(slideIndex - 1);
+                plusSlides(-1); // 前のスライド
             }
             
-            slideTimer = setTimeout(showSlides, 4000);
+            // スワイプ後も自動再生を継続
+            slideTimer = setTimeout(function() {
+                showSlides(slideIndex += 1);
+            }, 4000);
         });
-
 
         // --- 2. フェードインアニメーション（既存） ---
         const observer = new IntersectionObserver((entries) => {
