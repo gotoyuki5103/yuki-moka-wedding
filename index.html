@@ -144,14 +144,15 @@
             text-align: center;
         }
         .menu-list li {
-            margin: 20px 0;
+            margin: 15px 0; /* マージンを少し詰める */
         }
         .menu-list a {
             text-decoration: none;
             color: var(--text-color);
-            font-size: 1.8rem;
+            font-size: 1.4rem; /* 1.8rem から 1.4rem に縮小 */
             font-weight: 600;
-            display: block;
+            display: flex; /* flexboxで縦に並べる */
+            flex-direction: column;
             padding: 5px 10px;
             border-bottom: 1px solid rgba(197, 180, 163, 0.3);
             transition: color 0.3s;
@@ -159,8 +160,15 @@
         .menu-list a:hover {
             color: var(--accent-color);
         }
+        .menu-list .jp-nav {
+            font-size: 0.8rem; /* 日本語の小見出しを追加 */
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 3px;
+            font-family: var(--font-jp); /* 日本語フォントを適用 */
+        }
 
-        /* Gallery (Masonry風 → 横スクロールに変更) */
+        /* Gallery (横スクロールに変更) */
         .gallery-wrap {
             overflow-x: auto; /* 水平スクロールを有効にする */
             white-space: nowrap; /* 子要素を折り返さない */
@@ -350,12 +358,12 @@
             <span class="close-btn">&times;</span>
             <nav>
                 <ul class="menu-list">
-                    <li><a href="#top">TOP</a></li>
-                    <li><a href="#greeting">GREETING</a></li>
-                    <li><a href="#profile">PROFILE</a></li>
-                    <li><a href="#memories">MEMORIES</a></li>
-                    <li><a href="#seating-chart">SEATING CHART</a></li>
-                    <li><a href="#share-photos">SHARE PHOTOS</a></li>
+                    <li><a href="#top">TOP<span class="jp-nav">トップ</span></a></li>
+                    <li><a href="#greeting">GREETING<span class="jp-nav">ごあいさつ</span></a></li>
+                    <li><a href="#profile">PROFILE<span class="jp-nav">プロフィール</span></a></li>
+                    <li><a href="#memories">MEMORIES<span class="jp-nav">思い出の写真</span></a></li>
+                    <li><a href="#seating-chart">SEATING CHART<span class="jp-nav">席次表</span></a></li>
+                    <li><a href="#share-photos">SHARE PHOTOS<span class="jp-nav">写真の共有</span></a></li>
                 </ul>
             </nav>
         </div>
