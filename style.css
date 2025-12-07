@@ -4,39 +4,46 @@
 
 /* --- ベース設定 --- */
 :root {
-    --bg-color: #FDFCF8; /* オフホワイト */
-    --text-color: #4A4A4A; /* ダークグレー */
-    --accent-color: #C5B4A3; /* グレージュ */
-    --font-en: 'Cormorant Garamond', serif;
-    --font-jp: 'Shippori Mincho', serif;
+    --bg-color: #FDFCF8; /* オフホワイト */
+    --text-color: #4A4A4A; /* ダークグレー */
+    --accent-color: #C5B4A3; /* グレージュ */
+    --font-en: 'Cormorant Garamond', serif;
+    --font-jp: 'Shippori Mincho', serif;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-jp);
-    margin: 0;
-    line-height: 1.8;
-    letter-spacing: 0.05em;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-jp);
+    margin: 0;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+}
+
+/* ★★★ 修正: モーダル表示中のスクロールロック用 ★★★ */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
 }
 
 h1, h2, h3 {
-    font-family: var(--font-en);
-    font-weight: 400;
-    margin: 0;
-    text-align: center;
+    font-family: var(--font-en);
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .container {
-    max-width: 600px; /* スマホで見やすい幅 */
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 600px; /* スマホで見やすい幅 */
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 /* --- 既存要素（省略） --- */
@@ -81,44 +88,102 @@ section { padding: 80px 0; }
 .story-item:nth-child(even) .story-content { text-align: right; }
 .story-content p { margin: 0; }
 
+/* ★★★ 追加: Menuセクション ★★★ */
+.menu-list-container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed rgba(197, 180, 163, 0.5);
+    padding: 10px 0;
+    font-size: 0.95rem;
+}
+
+.menu-title {
+    font-weight: 500;
+    color: var(--accent-color);
+    margin: 0;
+    flex-basis: 30%;
+    flex-shrink: 0;
+}
+
+.menu-desc {
+    text-align: right;
+    margin: 0;
+    flex-basis: 70%;
+}
+
+.allergies-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 30px;
+}
+
+
 /* Slideshow / Gallery */
 .slideshow-container { max-width: 560px; position: relative; margin: auto; }
 .mySlides { display: none; text-align: center; }
-.mySlides img { width: 100%; height: 350px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.mySlides-pre { display: none; text-align: center; } /* 前撮り写真用 */
+
+.mySlides img, .mySlides-pre img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
 .fade-slide { -webkit-animation-name: fade; -webkit-animation-duration: 1.5s; animation-name: fade; animation-duration: 1.5s; }
 @-webkit-keyframes fade { from {opacity: .4} to {opacity: 1} }
 @keyframes fade { from {opacity: .4} to {opacity: 1} }
 .dots-container { text-align: center; margin-top: 20px; }
-.dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+.dot, .dot-pre { /* 前撮り写真用のドットも追加 */
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
 .active-dot { background-color: var(--accent-color); }
-/* ★★★ ここを追加/修正（style.cssに追記） ★★★ */
-/* 左右の矢印ボタン */
+
+/* ★★★ 修正: 左右の矢印ボタンの透明度とホバー/アクティブ時の挙動を改善 ★★★ */
 .prev-arrow, .next-arrow {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  background-color: rgba(0,0,0,0.5); /* 背景を半透明にして見やすくする */
-  z-index: 10;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    user-select: none;
+    
+    /* 修正: 初期は薄く、ホバー/アクティブで濃くなる */
+    background-color: rgba(0,0,0,0.3); /* 初期を薄くする */
+    transition: background-color 0.4s ease; /* transitionを追加 */
+    border-radius: 0 3px 3px 0;
+    z-index: 10;
 }
 
 /* 右矢印の位置調整と角丸 */
 .next-arrow {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+    right: 0;
+    border-radius: 3px 0 0 3px;
 }
 
-/* ホバー時の見た目（PC用だが、モバイルでもタッチ時に変化） */
-.prev-arrow:hover, .next-arrow:hover {
-  background-color: rgba(0,0,0,0.8);
+/* 修正: ホバー/アクティブ時に濃くする */
+.prev-arrow:hover, .next-arrow:hover,
+.prev-arrow:active, .next-arrow:active {
+    background-color: rgba(0,0,0,0.8);
 }
 
 
@@ -128,26 +193,25 @@ section { padding: 80px 0; }
 .seating-chart-area img:hover { opacity: 0.8; }
 .seating-chart-area p { font-size: 0.9rem; margin-top: 15px; color: #777; }
 
-/* Photo Share Section (中央揃え修正) */
+/* Photo Share Section */
 .share-text { text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
-.share-buttons { 
-    /* 修正点: Flexコンテナの幅を親要素に合わせ、要素を中央に寄せる */
-    display: flex; 
-    flex-direction: column; 
-    gap: 20px; 
-    align-items: center; /* 内部のボタンを水平中央に配置 */
-    max-width: 300px; /* ボタン群の幅を制限 */
-    margin: 0 auto; /* ★★★ コンテナ自体を中央に配置する修正 ★★★ */
+.share-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
 }
-.share-btn { 
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    width: 100%; /* 親要素のmax-width: 300pxに依存 */
-    padding: 15px 0; 
-    background-color: var(--accent-color); 
-    color: #fff; text-decoration: none; 
-    border-radius: 50px; 
-    transition: transform 0.2s, background-color 0.2s; 
-    box-shadow: 0 4px 10px rgba(197, 180, 163, 0.4); 
+.share-btn { 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    width: 100%;
+    padding: 15px 0; 
+    background-color: var(--accent-color); 
+    color: #fff; text-decoration: none; 
+    border-radius: 50px; 
+    transition: transform 0.2s, background-color 0.2s; 
+    box-shadow: 0 4px 10px rgba(197, 180, 163, 0.4); 
 }
 .share-btn:active { transform: scale(0.98); }
 .share-btn span:first-child { font-family: var(--font-en); font-size: 1.2rem; line-height: 1.2; }
@@ -155,3 +219,33 @@ section { padding: 80px 0; }
 
 /* Footer */
 footer { text-align: center; padding: 50px 0; font-family: var(--font-en); font-size: 0.8rem; color: #aaa; }
+
+
+/* ★★★ モバイル向け調整（前回の提案からStoryの修正を適用） ★★★ */
+@media (max-width: 600px) {
+    .story-item,
+    .story-item:nth-child(even) {
+        /* 縦並びに戻す */
+        flex-direction: column;
+        text-align: center; /* テキストも中央揃え */
+    }
+
+    .story-img-box {
+        flex-basis: auto; /* 幅の制限を解除 */
+        width: 90%; /* モバイルでの画像の最大幅を調整 */
+        margin-bottom: 10px;
+    }
+
+    .story-img-box img {
+        height: 200px; /* 画像の高さを少し増やす */
+    }
+
+    .story-content {
+        flex-basis: auto;
+        text-align: center; /* 全て中央揃え */
+    }
+
+    .story-content h4 {
+        text-align: center; /* タイトルも中央揃え */
+    }
+}
