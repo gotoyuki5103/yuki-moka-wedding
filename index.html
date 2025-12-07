@@ -29,6 +29,43 @@
         </div>
     </section>
 
+    <section class="container fade-in" id="preshoot">
+        <h2 class="section-title">PRESHOOT</h2>
+        
+        <div class="slideshow-container" id="slideshowPre">
+            <div class="mySlidesPre fade-slide">
+                <img src="https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pre Photo 1">
+            </div>
+
+            <div class="mySlidesPre fade-slide">
+                <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pre Photo 2">
+            </div>
+
+            <div class="mySlidesPre fade-slide">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pre Photo 3">
+            </div>
+
+            <div class="mySlidesPre fade-slide">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pre Photo 4">
+            </div>
+
+            <div class="mySlidesPre fade-slide">
+                <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pre Photo 5">
+            </div>
+
+            <a class="prev-arrow" onclick="plusSlidesPre(-1)">&#10094;</a>
+            <a class="next-arrow" onclick="plusSlidesPre(1)">&#10095;</a>
+        </div>
+        <br>
+        <div class="dots-container" style="text-align:center">
+            <span class="dotPre" onclick="currentSlidePre(1)"></span>
+            <span class="dotPre" onclick="currentSlidePre(2)"></span>
+            <span class="dotPre" onclick="currentSlidePre(3)"></span>
+            <span class="dotPre" onclick="currentSlidePre(4)"></span>
+            <span class="dotPre" onclick="currentSlidePre(5)"></span>
+        </div>
+    </section>
+
     <section class="container fade-in" id="profile">
         <h2 class="section-title">Profile</h2>
         
@@ -175,6 +212,7 @@
                     <li><a href="#profile">PROFILE<span class="jp-nav">プロフィール</span></a></li>
                     <li><a href="#story">OUR STORY<span class="jp-nav">二人の物語</span></a></li>
                     <li><a href="#memories">MEMORIES<span class="jp-nav">思い出の写真</span></a></li>
+                        <li><a href="#preshoot">PRESHOOT<span class="jp-nav">前撮り</span></a></li>
                     <li><a href="#seating-chart">SEATING CHART<span class="jp-nav">席次表</span></a></li>
                     <li><a href="#share-photos">SHARE PHOTOS<span class="jp-nav">写真の共有</span></a></li>
                 </ul>
@@ -333,6 +371,73 @@
                 }
             });
         });
+
+        // --- 1/4. 汎用スライダー実装（Memories と PRESHOOT の両方で利用） ---
+        function Slider(opts) {
+            this.container = document.getElementById(opts.containerId);
+            this.slideClass = opts.slideClass;
+            this.dotClass = opts.dotClass;
+            this.index = 1;
+            this.timer = null;
+            this.startX = 0;
+            this.interval = opts.interval || 4000;
+
+            const self = this;
+
+            this.show = function(n) {
+                const slides = document.getElementsByClassName(self.slideClass);
+                const dots = document.getElementsByClassName(self.dotClass);
+                if (slides.length === 0) return;
+
+                if (n > slides.length) { self.index = 1; }
+                if (n < 1) { self.index = slides.length; }
+
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = 'none';
+                    if (dots[i]) dots[i].className = dots[i].className.replace(' active-dot','');
+                }
+
+                slides[self.index-1].style.display = 'block';
+                if (dots[self.index-1]) dots[self.index-1].className += ' active-dot';
+
+                clearTimeout(self.timer);
+                self.timer = setTimeout(function() { self.show(self.index += 1); }, self.interval);
+            };
+
+            this.plus = function(n) { clearTimeout(self.timer); self.show(self.index += n); };
+            this.current = function(n) { clearTimeout(self.timer); self.show(self.index = n); };
+
+            // タッチイベント
+            if (this.container) {
+                this.container.addEventListener('touchstart', function(e) {
+                    self.startX = e.touches[0].clientX;
+                    clearTimeout(self.timer);
+                });
+
+                this.container.addEventListener('touchend', function(e) {
+                    const endX = e.changedTouches[0].clientX;
+                    const threshold = 50;
+                    if (self.startX - endX > threshold) {
+                        self.plus(1);
+                    } else if (endX - self.startX > threshold) {
+                        self.plus(-1);
+                    }
+                });
+            }
+
+            // 初回表示
+            this.show(this.index);
+        }
+
+        // インスタンス化（既存のHTMLのonclick属性と連携するためにグローバル参照を用意）
+        const mainSlider = new Slider({ containerId: 'slideshow', slideClass: 'mySlides', dotClass: 'dot', interval: 4000 });
+        const preSlider = new Slider({ containerId: 'slideshowPre', slideClass: 'mySlidesPre', dotClass: 'dotPre', interval: 4000 });
+
+        // 旧スタイルのonclickハンドラと互換性を保つ小さなラッパー
+        function plusSlides(n) { mainSlider.plus(n); }
+        function currentSlide(n) { mainSlider.current(n); }
+        function plusSlidesPre(n) { preSlider.plus(n); }
+        function currentSlidePre(n) { preSlider.current(n); }
 
     </script>
 </body>
