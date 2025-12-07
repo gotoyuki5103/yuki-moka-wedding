@@ -82,43 +82,62 @@ section { padding: 80px 0; }
 .story-content p { margin: 0; }
 
 /* Slideshow / Gallery */
-.slideshow-container { max-width: 560px; position: relative; margin: auto; }
-.mySlides { display: none; text-align: center; }
-.mySlides img { width: 100%; height: 350px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.slideshow-container { max-width: 560px; position: relative; margin: auto; height: 350px; display: flex; align-items: center; justify-content: center; }
+.mySlides { display: none; text-align: center; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+/* 画像を切り抜かず全体を見せる（paddingのように中央に収める） */
+.mySlides img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); background-color: rgba(255,255,255,0.02); margin: 0 auto; display: block; }
 .fade-slide { -webkit-animation-name: fade; -webkit-animation-duration: 1.5s; animation-name: fade; animation-duration: 1.5s; }
 @-webkit-keyframes fade { from {opacity: .4} to {opacity: 1} }
 @keyframes fade { from {opacity: .4} to {opacity: 1} }
 .dots-container { text-align: center; margin-top: 20px; }
 .dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
 .active-dot { background-color: var(--accent-color); }
+/* 前撮り用の固定高さ（Memoriesと同じ高さに揃える） */
+.slideshow-container#slideshowPre { height: 350px; display: flex; align-items: center; justify-content: center; }
+.mySlidesPre { display: none; text-align: center; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.mySlidesPre img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); background-color: rgba(255,255,255,0.02); margin: 0 auto; display: block; }
 /* ★★★ ここを追加/修正（style.cssに追記） ★★★ */
 /* 左右の矢印ボタン */
 .prev-arrow, .next-arrow {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  background-color: rgba(0,0,0,0.5); /* 背景を半透明にして見やすくする */
-  z-index: 10;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* コンテナ中央に固定（高さは固定し短め） */
+    padding: 8px 10px;
+    height: 44px; /* 縦長にしない */
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 18px;
+    transition: background-color 0.14s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    border-radius: 10px;
+    user-select: none;
+    /* 透明度を高めて画像を邪魔しない見た目に調整 */
+    background-color: rgba(255,255,255,0.60);
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* 右矢印の位置調整と角丸 */
-.next-arrow {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+/* 左右の位置を明示 */
+.prev-arrow { left: 8px; }
+.next-arrow { right: 8px; }
+
+/* ホバー/フォーカス時（濃くなりすぎないように） */
+.prev-arrow:hover, .next-arrow:hover, .prev-arrow:focus, .next-arrow:focus {
+    background-color: rgba(255,255,255,0.85);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    opacity: 1;
 }
 
-/* ホバー時の見た目（PC用だが、モバイルでもタッチ時に変化） */
-.prev-arrow:hover, .next-arrow:hover {
-  background-color: rgba(0,0,0,0.8);
+/* 押した時の視覚フィードバック: 移動させないで明度で表現 */
+.prev-arrow:active, .next-arrow:active {
+    background-color: rgba(240,240,240,0.98);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
 }
 
 
