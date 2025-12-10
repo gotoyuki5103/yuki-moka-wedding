@@ -1,0 +1,12 @@
+{
+  "sliders": {
+    "memories": {
+      "folder": "images/memories",
+      "count": 5
+    },
+    "preshoot": {
+      "folder": "images/preshoot",
+      "count": 7
+    }
+  }
+}

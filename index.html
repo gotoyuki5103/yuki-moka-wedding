@@ -29,53 +29,16 @@
         </div>
     </section>
 
-    <section class="container fade-in" id="preshoot">
-        <h2 class="section-title">PRESHOOT</h2>
-        
-        <div class="slideshow-container" id="slideshowPre">
-            <div class="mySlidesPre fade-slide">
-                <img src="images/preshoot/01.jpg" alt="Pre Photo 1">
-            </div>
-
-            <div class="mySlidesPre fade-slide">
-                <img src="images/preshoot/02.jpg" alt="Pre Photo 2">
-            </div>
-
-            <div class="mySlidesPre fade-slide">
-                <img src="images/preshoot/03.jpg" alt="Pre Photo 3">
-            </div>
-
-            <div class="mySlidesPre fade-slide">
-                <img src="images/preshoot/04.jpg" alt="Pre Photo 4">
-            </div>
-
-            <div class="mySlidesPre fade-slide">
-                <img src="images/preshoot/05.jpg" alt="Pre Photo 5">
-            </div>
-
-            <a class="prev-arrow" onclick="plusSlidesPre(-1)">&#10094;</a>
-            <a class="next-arrow" onclick="plusSlidesPre(1)">&#10095;</a>
-        </div>
-        <br>
-        <div class="dots-container" style="text-align:center">
-            <span class="dotPre" onclick="currentSlidePre(1)"></span>
-            <span class="dotPre" onclick="currentSlidePre(2)"></span>
-            <span class="dotPre" onclick="currentSlidePre(3)"></span>
-            <span class="dotPre" onclick="currentSlidePre(4)"></span>
-            <span class="dotPre" onclick="currentSlidePre(5)"></span>
-        </div>
-    </section>
-
     <section class="container fade-in" id="profile">
         <h2 class="section-title">Profile</h2>
         
         <div class="profile-card">
             <img src="images/profile/yuki.jpg" alt="Groom" class="profile-img">
-            <h3 class="profile-name">Yuki Tanaka</h3> 
+            <h3 class="profile-name">Yuki Goto</h3> 
             <p class="profile-desc">
-                1995年生まれ、東京都出身。<br>
-                趣味はキャンプとコーヒー。<br>
-                休日は美味しい豆を探してカフェ巡りをしています。<br>
+                1998年生まれ、岡山県出身。<br>
+                趣味は温泉に入ったり、ゆっくりすること。<br>
+                休日はお家でだらだらと過ごしています。<br>
                 一言：今日は最高の1日にしましょう！
             </p>
         </div>
@@ -84,9 +47,9 @@
             <img src="images/profile/moka.jpg" alt="Bride" class="profile-img">
             <h3 class="profile-name">Moka Suzuki</h3>
             <p class="profile-desc">
-                1996年生まれ、神奈川県出身。<br>
-                趣味は映画鑑賞と旅行。<br>
-                特技はどこでも寝られること。<br>
+                1999年生まれ、東京都出身。<br>
+                趣味はライブに行くこと。<br>
+                特技は新しいことに挑戦できること。<br>
                 一言：たくさん写真を撮ってくださいね♪
             </p>
         </div>
@@ -126,41 +89,31 @@
         </div>
     </section>
 
+    <section class="container fade-in" id="preshoot">
+        <h2 class="section-title">PRESHOOT</h2>
+        
+        <div class="slideshow-container" id="slideshowPre">
+            <!-- スライドはJSで動的に生成されます -->
+            <a class="prev-arrow" onclick="plusSlidesPre(-1)">&#10094;</a>
+            <a class="next-arrow" onclick="plusSlidesPre(1)">&#10095;</a>
+        </div>
+        <br>
+        <div class="dots-container" id="dotsPreshoot" style="text-align:center">
+            <!-- ドットはJSで動的に生成されます -->
+        </div>
+    </section>
+
     <section class="container fade-in" id="memories">
-        <h2 class="section-title">Our Memories</h2>
+        <h2 class="section-title">MEMORIES</h2>
         
         <div class="slideshow-container" id="slideshow">
-            
-            <div class="mySlides fade-slide">
-                <img src="images/memories/01.jpg" alt="Memory Photo 1">
-            </div>
-
-            <div class="mySlides fade-slide">
-                <img src="images/memories/02.jpg" alt="Memory Photo 2">
-            </div>
-
-            <div class="mySlides fade-slide">
-                <img src="images/memories/03.jpg" alt="Memory Photo 3">
-            </div>
-
-            <div class="mySlides fade-slide">
-                <img src="images/memories/04.jpg" alt="Memory Photo 4">
-            </div>
-
-            <div class="mySlides fade-slide">
-                <img src="images/memories/05.jpg" alt="Memory Photo 5">
-            </div>
+            <!-- スライドはJSで動的に生成されます -->
             <a class="prev-arrow" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next-arrow" onclick="plusSlides(1)">&#10095;</a>
         </div>
         <br>
-        
-        <div class="dots-container" style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span> 
-            <span class="dot" onclick="currentSlide(2)"></span> 
-            <span class="dot" onclick="currentSlide(3)"></span> 
-            <span class="dot" onclick="currentSlide(4)"></span>
-            <span class="dot" onclick="currentSlide(5)"></span>
+        <div class="dots-container" id="dotsMemories" style="text-align:center">
+            <!-- ドットはJSで動的に生成されます -->
         </div>
         
     </section>
@@ -211,8 +164,8 @@
                     <li><a href="#greeting">GREETING<span class="jp-nav">ごあいさつ</span></a></li>
                     <li><a href="#profile">PROFILE<span class="jp-nav">プロフィール</span></a></li>
                     <li><a href="#story">OUR STORY<span class="jp-nav">二人の物語</span></a></li>
+                    <li><a href="#preshoot">PRESHOOT<span class="jp-nav">前撮り</span></a></li>
                     <li><a href="#memories">MEMORIES<span class="jp-nav">思い出の写真</span></a></li>
-                        <li><a href="#preshoot">PRESHOOT<span class="jp-nav">前撮り</span></a></li>
                     <li><a href="#seating-chart">SEATING CHART<span class="jp-nav">席次表</span></a></li>
                     <li><a href="#share-photos">SHARE PHOTOS<span class="jp-nav">写真の共有</span></a></li>
                 </ul>
@@ -232,78 +185,201 @@
         // ==================================
         // JavaScript (スライドショー、スクロールアニメーション & モーダル)
         // ==================================
+
+        // --- 0. config.json の読み込みと動的スライド生成、画像数の自動検出 ---
+
+        /**
+         * 指定されたフォルダ内の連番画像ファイル（01.jpg, 02.jpg...）の数を自動検出する
+         * @param {string} folderPath - 画像フォルダのパス (例: 'images/memories')
+         * @param {number} maxCount - 検索する最大の画像数
+         * @returns {Promise<number>} 見つかった画像ファイルの数
+         */
+        async function detectImageCount(folderPath, maxCount = 50) {
+            let count = 0;
+            for (let i = 1; i <= maxCount; i++) {
+                const fileName = `${String(i).padStart(2, '0')}.jpg`;
+                const url = `${folderPath}/${fileName}`;
+
+                try {
+                    // HEADリクエストでコンテンツを取得せずに存在チェック
+                    const response = await fetch(url, { method: 'HEAD' });
+                    
+                    // HTTPステータス200-299の範囲が成功
+                    if (response.ok) {
+                        count++;
+                    } else {
+                        // 404 Not Found など、ファイルが存在しない場合はループを終了
+                        break;
+                    }
+                } catch (error) {
+                    // ネットワークエラーなどが発生した場合も終了
+                    console.error(`Error checking image: ${url}`, error);
+                    break;
+                }
+            }
+            return count;
+        }
+
+
+        async function initDynamicSliders() {
+            let config = {
+                sliders: {
+                    memories: { folder: 'images/memories', count: 5 }, // デフォルト値
+                    preshoot: { folder: 'images/preshoot', count: 5 }
+                }
+            };
+
+            try {
+                // config.json の読み込み（フォルダパスの取得のため）
+                const response = await fetch('config.json');
+                const jsonConfig = await response.json();
+                
+                // フォルダパスをconfigから取得（countは自動検出で上書きされる）
+                config = jsonConfig;
+            } catch (error) {
+                console.warn('config.json の読み込みに失敗しました。デフォルトのパスを使用します。', error);
+                // エラー時もconfigのデフォルト値を使用し、処理を続行
+            }
+
+            // --- 画像数の自動検出 ---
+            
+            // MEMORIES
+            const memoriesCount = await detectImageCount(config.sliders.memories.folder);
+            if (memoriesCount > 0) {
+                config.sliders.memories.count = memoriesCount;
+            }
+            console.log(`MEMORIES images detected: ${config.sliders.memories.count}`);
+            
+            // PRESHOOT
+            const preshootCount = await detectImageCount(config.sliders.preshoot.folder);
+            if (preshootCount > 0) {
+                config.sliders.preshoot.count = preshootCount;
+            }
+            console.log(`PRESHOOT images detected: ${config.sliders.preshoot.count}`);
         
-         // --- 1. Slideshow ---
-        let slideIndex = 1; // 1から始めるように修正
+            
+            // --- スライダーの構築 ---
+            
+            // MEMORIES セクション
+            buildSlider('slideshow', 'dotsMemories', 'mySlides', 'dot', config.sliders.memories.folder, config.sliders.memories.count);
+            
+            // PRESHOOT セクション
+            buildSlider('slideshowPre', 'dotsPreshoot', 'mySlidesPre', 'dotPre', config.sliders.preshoot.folder, config.sliders.preshoot.count);
+        
+            // 初期表示
+            slideIndex = 1;
+            preSlideIndex = 1;
+            // DOM構築後に最初のスライドを確実に表示するため、短い遅延で呼び出す
+            setTimeout(() => {
+                if (config.sliders.memories.count > 0 && typeof showSlides === 'function') showSlides(slideIndex);
+                if (config.sliders.preshoot.count > 0 && typeof showSlidesPre === 'function') showSlidesPre(preSlideIndex);
+            }, 50);
+        }
+
+        // スライドとドットを動的に生成する関数
+        function buildSlider(containerId, dotsContainerId, slideClass, dotClass, folder, count) {
+            const container = document.getElementById(containerId);
+            const dotsContainer = document.getElementById(dotsContainerId);
+            
+            if (!container || !dotsContainer || count === 0) return;
+
+            // スライド要素を生成
+            for (let i = 1; i <= count; i++) {
+                const slide = document.createElement('div');
+                slide.className = `${slideClass} fade-slide`;
+                const img = document.createElement('img');
+                img.src = `${folder}/${String(i).padStart(2, '0')}.jpg`;
+                img.alt = `Photo ${i}`;
+                slide.appendChild(img);
+                // 矢印ボタンの手前に挿入（矢印ボタンがcontainerの最後にあると想定）
+                const arrow = container.querySelector('.prev-arrow');
+                if (arrow) {
+                    container.insertBefore(slide, arrow);
+                } else {
+                    container.appendChild(slide); // 矢印がない場合は最後に追加
+                }
+            }
+
+            // ドット要素を生成
+            for (let i = 1; i <= count; i++) {
+                const dot = document.createElement('span');
+                dot.className = dotClass;
+                dot.onclick = () => {
+                    if (slideClass === 'mySlides') currentSlide(i);
+                    else if (slideClass === 'mySlidesPre') currentSlidePre(i);
+                };
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // ページ読み込み後に実行
+        document.addEventListener('DOMContentLoaded', initDynamicSliders);
+        
+        // --- 1. Slideshow (MEMORIES) ---
+        let slideIndex = 1; 
         let slideTimer;
         let startX = 0; 
 
-        // 前後のスライドに移動する関数を追加（矢印ボタンから呼び出される）
         function plusSlides(n) {
             clearTimeout(slideTimer);
             showSlides(slideIndex += n);
         }
 
-        // ドットから直接スライドに移動する関数を修正
         function currentSlide(n) {
             clearTimeout(slideTimer);
             showSlides(slideIndex = n);
         }
 
-        // スライドの表示とタイマーを設定するメイン関数をリファクタリング
         function showSlides(n) {
             let i;
             const slides = document.getElementsByClassName("mySlides");
             const dots = document.getElementsByClassName("dot");
 
-            // スライドインデックスのループ処理（最後→最初、最初→最後）
+            if (slides.length === 0) return; // スライドがない場合は処理を中断
+
             if (n > slides.length) {slideIndex = 1}    
             if (n < 1) {slideIndex = slides.length}
             
-            // 全てのスライドを非表示にし、ドットを非アクティブ化
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";  
-                dots[i].className = dots[i].className.replace(" active-dot", "");
+                if (dots[i]) dots[i].className = dots[i].className.replace(" active-dot", "");
             }
             
-            // 現在のスライドを表示し、ドットをアクティブ化
             slides[slideIndex-1].style.display = "block";  
-            dots[slideIndex-1].className += " active-dot";
+            if (dots[slideIndex-1]) dots[slideIndex-1].className += " active-dot";
             
-            // 自動再生タイマーの再設定
             clearTimeout(slideTimer);
             slideTimer = setTimeout(function() {
                 showSlides(slideIndex += 1);
             }, 4000); 
         }
 
-        // 初回実行
-        showSlides(slideIndex);
+        // スワイプ操作 (MEMORIES)
+        // DOM構築後の初期化のためsetTimeoutで囲う
+        setTimeout(() => {
+            const slideshowContainer = document.getElementById('slideshow');
+            if (slideshowContainer) {
+                slideshowContainer.addEventListener('touchstart', function(event) {
+                    startX = event.touches[0].clientX;
+                    clearTimeout(slideTimer); 
+                });
 
-
-        // スワイプ操作の修正（plusSlidesを利用するように修正）
-        const slideshowContainer = document.getElementById('slideshow');
-        
-        slideshowContainer.addEventListener('touchstart', function(event) {
-            startX = event.touches[0].clientX;
-            clearTimeout(slideTimer); 
-        });
-
-        slideshowContainer.addEventListener('touchend', function(event) {
-            const endX = event.changedTouches[0].clientX;
-            const threshold = 50; 
-            
-            if (startX - endX > threshold) {
-                plusSlides(1); // 次のスライド
-            } else if (endX - startX > threshold) {
-                plusSlides(-1); // 前のスライド
+                slideshowContainer.addEventListener('touchend', function(event) {
+                    const endX = event.changedTouches[0].clientX;
+                    const threshold = 50; 
+                    
+                    if (startX - endX > threshold) {
+                        plusSlides(1); // 次のスライド
+                    } else if (endX - startX > threshold) {
+                        plusSlides(-1); // 前のスライド
+                    }
+                    
+                    slideTimer = setTimeout(function() {
+                        showSlides(slideIndex += 1);
+                    }, 4000);
+                });
             }
-            
-            // スワイプ後も自動再生を継続
-            slideTimer = setTimeout(function() {
-                showSlides(slideIndex += 1);
-            }, 4000);
-        });
+        }, 100);
 
         // --- 2. フェードインアニメーション（既存） ---
         const observer = new IntersectionObserver((entries) => {
@@ -372,72 +448,70 @@
             });
         });
 
-        // --- 1/4. 汎用スライダー実装（Memories と PRESHOOT の両方で利用） ---
-        function Slider(opts) {
-            this.container = document.getElementById(opts.containerId);
-            this.slideClass = opts.slideClass;
-            this.dotClass = opts.dotClass;
-            this.index = 1;
-            this.timer = null;
-            this.startX = 0;
-            this.interval = opts.interval || 4000;
+        // --- 4. 前撮りギャラリー用スライド制御 (PRESHOOT) ---
+        let preSlideIndex = 1;
+        let preSlideTimer;
+        let preStartX = 0;
 
-            const self = this;
-
-            this.show = function(n) {
-                const slides = document.getElementsByClassName(self.slideClass);
-                const dots = document.getElementsByClassName(self.dotClass);
-                if (slides.length === 0) return;
-
-                if (n > slides.length) { self.index = 1; }
-                if (n < 1) { self.index = slides.length; }
-
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].style.display = 'none';
-                    if (dots[i]) dots[i].className = dots[i].className.replace(' active-dot','');
-                }
-
-                slides[self.index-1].style.display = 'block';
-                if (dots[self.index-1]) dots[self.index-1].className += ' active-dot';
-
-                clearTimeout(self.timer);
-                self.timer = setTimeout(function() { self.show(self.index += 1); }, self.interval);
-            };
-
-            this.plus = function(n) { clearTimeout(self.timer); self.show(self.index += n); };
-            this.current = function(n) { clearTimeout(self.timer); self.show(self.index = n); };
-
-            // タッチイベント
-            if (this.container) {
-                this.container.addEventListener('touchstart', function(e) {
-                    self.startX = e.touches[0].clientX;
-                    clearTimeout(self.timer);
-                });
-
-                this.container.addEventListener('touchend', function(e) {
-                    const endX = e.changedTouches[0].clientX;
-                    const threshold = 50;
-                    if (self.startX - endX > threshold) {
-                        self.plus(1);
-                    } else if (endX - self.startX > threshold) {
-                        self.plus(-1);
-                    }
-                });
-            }
-
-            // 初回表示
-            this.show(this.index);
+        function plusSlidesPre(n) {
+            clearTimeout(preSlideTimer);
+            showSlidesPre(preSlideIndex += n);
         }
 
-        // インスタンス化（既存のHTMLのonclick属性と連携するためにグローバル参照を用意）
-        const mainSlider = new Slider({ containerId: 'slideshow', slideClass: 'mySlides', dotClass: 'dot', interval: 4000 });
-        const preSlider = new Slider({ containerId: 'slideshowPre', slideClass: 'mySlidesPre', dotClass: 'dotPre', interval: 4000 });
+        function currentSlidePre(n) {
+            clearTimeout(preSlideTimer);
+            showSlidesPre(preSlideIndex = n);
+        }
 
-        // 旧スタイルのonclickハンドラと互換性を保つ小さなラッパー
-        function plusSlides(n) { mainSlider.plus(n); }
-        function currentSlide(n) { mainSlider.current(n); }
-        function plusSlidesPre(n) { preSlider.plus(n); }
-        function currentSlidePre(n) { preSlider.current(n); }
+        function showSlidesPre(n) {
+            let i;
+            const slides = document.getElementsByClassName("mySlidesPre");
+            const dots = document.getElementsByClassName("dotPre");
+
+            if (slides.length === 0) return;
+
+            if (n > slides.length) { preSlideIndex = 1 }
+            if (n < 1) { preSlideIndex = slides.length }
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                if (dots[i]) dots[i].className = dots[i].className.replace(" active-dot", "");
+            }
+
+            slides[preSlideIndex-1].style.display = "block";
+            if (dots[preSlideIndex-1]) dots[preSlideIndex-1].className += " active-dot";
+
+            clearTimeout(preSlideTimer);
+            preSlideTimer = setTimeout(function() {
+                showSlidesPre(preSlideIndex += 1);
+            }, 4000);
+        }
+
+        // タッチ操作（前撮り）
+        // DOM構築後の初期化のためsetTimeoutで囲う
+        setTimeout(() => {
+            const slideshowPreContainer = document.getElementById('slideshowPre');
+            if (slideshowPreContainer) {
+                slideshowPreContainer.addEventListener('touchstart', function(event) {
+                    preStartX = event.touches[0].clientX;
+                    clearTimeout(preSlideTimer);
+                });
+
+                slideshowPreContainer.addEventListener('touchend', function(event) {
+                    const endX = event.changedTouches[0].clientX;
+                    const threshold = 50;
+                    if (preStartX - endX > threshold) {
+                        plusSlidesPre(1);
+                    } else if (endX - preStartX > threshold) {
+                        plusSlidesPre(-1);
+                    }
+
+                    preSlideTimer = setTimeout(function() {
+                        showSlidesPre(preSlideIndex += 1);
+                    }, 4000);
+                });
+            }
+        }, 100);
 
     </script>
 </body>
