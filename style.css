@@ -1,14 +1,26 @@
 /* ================================== */
-/* CSS (デザインとレイアウト) */
+/* Wedding Profile Book - Improved CSS */
 /* ================================== */
 
-/* --- ベース設定 --- */
+/* --- CSS Variables --- */
 :root {
-    --bg-color: #FDFCF8; /* オフホワイト */
-    --text-color: #4A4A4A; /* ダークグレー */
-    --accent-color: #C5B4A3; /* グレージュ */
+    --bg-color: #FDFCF8;
+    --text-color: #4A4A4A;
+    --accent-color: #C5B4A3;
+    --accent-hover: #B5A493;
+    --white: #FFFFFF;
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
     --font-en: 'Cormorant Garamond', serif;
     --font-jp: 'Shippori Mincho', serif;
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -16,15 +28,17 @@ body {
     color: var(--text-color);
     font-family: var(--font-jp);
     margin: 0;
+    padding: 0;
     line-height: 1.8;
     letter-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: var(--font-en);
     font-weight: 400;
     margin: 0;
-    text-align: center;
 }
 
 img {
@@ -33,151 +47,763 @@ img {
     display: block;
 }
 
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* --- Accessibility --- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* --- Loading Overlay --- */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(197, 180, 163, 0.2);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    margin-top: 20px;
+    font-family: var(--font-en);
+    color: var(--accent-color);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+}
+
+/* --- Container --- */
 .container {
-    max-width: 600px; /* スマホで見やすい幅 */
+    max-width: 600px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* --- 既存要素（省略） --- */
-.menu-btn { position: fixed; top: 20px; right: 20px; z-index: 100; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.8); border: 1px solid var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.3s; }
-.menu-btn span { font-size: 1.5rem; color: var(--text-color); line-height: 1; }
-.modal { display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-.modal.is-active { display: flex; }
-.modal-content { background-color: var(--bg-color); padding: 20px; border-radius: 8px; max-width: 90%; max-height: 90%; position: relative; overflow-y: auto; }
-#imgModalContent { background: none; padding: 0; width: auto; height: auto; }
-#imgModalContent img { max-width: 100vw; max-height: 100vh; display: block; object-fit: contain; }
-.close-btn { color: #fff; position: absolute; top: 10px; right: 25px; font-size: 35px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 210; }
-#menuModal .close-btn { color: var(--text-color); right: 15px; top: 5px; }
-.menu-list { list-style: none; padding: 0; margin: 0; font-family: var(--font-en); text-align: center; }
-.menu-list li { margin: 10px 0; }
-.menu-list a { text-decoration: none; color: var(--text-color); font-size: 1.4rem; font-weight: 600; display: flex; flex-direction: column; padding: 5px 10px; border-bottom: 1px solid rgba(197, 180, 163, 0.3); transition: color 0.3s; }
-.menu-list a:hover { color: var(--accent-color); }
-.menu-list .jp-nav { font-size: 0.8rem; font-weight: 400; opacity: 0.8; margin-top: 2px; font-family: var(--font-jp); }
+/* --- Menu Button --- */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-light);
+    transition: all var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+}
 
-/* ヒーローセクション */
-.hero-img { width: 80%; height: 60vh; object-fit: cover; border-radius: 10px; margin-bottom: 2rem; filter: brightness(0.95); }
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
-.hero-title { font-size: 2.5rem; font-style: italic; }
-.hero-date { font-size: 1rem; margin-top: 10px; color: #888; }
-section { padding: 80px 0; }
-.section-title { font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
-.section-title::after { content: ''; display: block; width: 40px; height: 1px; background: var(--accent-color); margin: 10px auto 0; }
-.greeting-text { text-align: center; font-size: 0.95rem; }
-.profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; }
-.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 1px solid var(--accent-color); padding: 5px; }
-.profile-name { font-size: 1.5rem; font-family: var(--font-en); margin-bottom: 10px; }
-.profile-desc { font-size: 0.9rem; text-align: justify; }
+.menu-btn:hover,
+.menu-btn:focus {
+    background: var(--white);
+    box-shadow: var(--shadow-medium);
+    transform: scale(1.05);
+}
 
-/* Our Story */
-.story-item { display: flex; align-items: center; margin-bottom: 40px; gap: 20px; }
-.story-item:nth-child(even) { flex-direction: row-reverse; }
-.story-img-box { flex-basis: 40%; flex-shrink: 0; position: relative; }
-.story-img-box img { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; }
-.story-content { flex-basis: 60%; font-size: 0.9rem; }
-.story-content h4 { font-family: var(--font-en); font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; text-align: left; color: var(--accent-color); }
-.story-item:nth-child(even) .story-content { text-align: right; }
-.story-content p { margin: 0; }
+.menu-btn:active {
+    transform: scale(0.95);
+}
 
-/* Slideshow / Gallery */
-.slideshow-container { max-width: 560px; position: relative; margin: auto; height: 350px; display: flex; align-items: center; justify-content: center; }
-.mySlides { display: none; text-align: center; width: 100%; height: 100%; }
-/* 画像を切り抜かず全体を見せる（paddingのように中央に収める） */
-.mySlides img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); background-color: rgba(255,255,255,0.02); margin: auto; }
-.fade-slide { -webkit-animation-name: fade; -webkit-animation-duration: 1.5s; animation-name: fade; animation-duration: 1.5s; }
+.menu-btn span {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    line-height: 1;
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px 40px;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 450px;
+    height: 60vh;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    filter: brightness(0.97);
+    box-shadow: var(--shadow-medium);
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.hero-date {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    font-family: var(--font-en);
+}
+
+/* --- Fade In Animation --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Section Styles --- */
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--accent-color);
+    margin: 15px auto 0;
+}
+
+/* --- Greeting --- */
+.greeting-text {
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 2;
+}
+
+.greeting-text p {
+    margin: 1.5em 0;
+}
+
+/* --- Profile --- */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.profile-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid var(--accent-color);
+    padding: 5px;
+    background: var(--white);
+    box-shadow: var(--shadow-light);
+}
+
+.profile-name {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.profile-desc {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    max-width: 400px;
+}
+
+/* --- Story --- */
+.story-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+.story-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.story-img-box {
+    flex: 0 0 40%;
+}
+
+.story-img-box img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    transition: transform var(--transition-normal);
+}
+
+.story-img-box img:hover {
+    transform: scale(1.03);
+}
+
+.story-content {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+.story-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+}
+
+.story-item:nth-child(even) .story-content {
+    text-align: right;
+}
+
+/* ================================== */
+/* Slideshow / Gallery (Update)       */
+/* ================================== */
+
+.slideshow-container, 
+.slideshow-container#slideshowPre { 
+    max-width: 560px; 
+    position: relative; 
+    margin: auto; 
+    height: 350px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* スライド画像 */
+.mySlides, .mySlidesPre { 
+    display: none; 
+    text-align: center; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.mySlides img, .mySlidesPre img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    width: auto; 
+    height: auto; 
+    object-fit: contain; 
+    border-radius: 8px; 
+    /* 写真の影を少し柔らかく広げる */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
+    margin: auto; 
+}
+
+/* フェードアニメーション */
+.fade-slide { 
+    -webkit-animation-name: fade; 
+    -webkit-animation-duration: 1.5s; 
+    animation-name: fade; 
+    animation-duration: 1.5s; 
+}
 @-webkit-keyframes fade { from {opacity: .4} to {opacity: 1} }
 @keyframes fade { from {opacity: .4} to {opacity: 1} }
-.dots-container { text-align: center; margin-top: 20px; }
-.dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
-.active-dot { background-color: var(--accent-color); }
-/* PRESHOOT 用ドット（Memories と同じ見た目に揃える） */
-.dotPre { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
 
-/* PRESHOOT のアクティブ状態を明示的に設定（Memories と同じ見た目に揃える） */
-.dotPre.active-dot { background-color: var(--accent-color); }
 
-/* 前撮り用の固定高さ（Memoriesと同じ高さに揃える） */
-.slideshow-container#slideshowPre { height: 350px; display: flex; align-items: center; justify-content: center; position: relative; }
-.mySlidesPre { display: none; text-align: center; width: 100%; height: 100%; }
-.mySlidesPre img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); background-color: rgba(255,255,255,0.02); margin: auto; }
-/* ★★★ ここを追加/修正（style.cssに追記） ★★★ */
-/* 左右の矢印ボタン */
+/* ---------------------------------- */
+/* 矢印ボタン (Glassmorphism Design)  */
+/* ---------------------------------- */
 .prev-arrow, .next-arrow {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 念のため両軸で中央に。後の left/right で水平位置を指定 */
-    padding: 8px 10px;
-    height: 44px; /* 縦長にしない */
-    min-width: 44px;
-    display: inline-flex;
+    transform: translateY(-50%);
+    
+    /* 綺麗な正円を作る */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    
+    /* フレックスボックスで矢印を中央揃え */
+    display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
-    font-weight: 700;
+    
+    /* すりガラス風の背景 */
+    background-color: rgba(255, 255, 255, 0.25); /* 透明度のある白 */
+    backdrop-filter: blur(4px); /* 背景をぼかす */
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.4); /* うっすら白い枠線 */
+    
+    /* 矢印文字のスタイル */
+    color: #fff;
     font-size: 18px;
-    transition: background-color 0.14s ease, box-shadow 0.12s ease, opacity 0.12s ease;
-    border-radius: 10px;
-    user-select: none;
-    /* 透明度を高めて画像を邪魔しない見た目に調整 */
-    background-color: rgba(255,255,255,0.60);
-    border: 1px solid rgba(0,0,0,0.04);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    font-weight: 400;
+    
+    /* 影で浮遊感を出す */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 10;
+    user-select: none;
     -webkit-tap-highlight-color: transparent;
+    
+    /* ボタンリセット */
+    padding: 0;
 }
 
-/* 左右の位置を明示 */
-.prev-arrow { left: 8px; transform: translateY(-50%); }
-.next-arrow { right: 8px; left: auto; transform: translateY(-50%); }
+/* 位置調整 */
+.prev-arrow { left: 15px; padding-right: 2px; } /* 視覚的中心補正 */
+.next-arrow { right: 15px; padding-left: 2px; }
 
-/* ホバー/フォーカス時（濃くなりすぎないように） */
-.prev-arrow:hover, .next-arrow:hover, .prev-arrow:focus, .next-arrow:focus {
-    background-color: rgba(255,255,255,0.85);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+/* ホバー時の動き */
+.prev-arrow:hover, .next-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* タップ時の動き */
+.prev-arrow:active, .next-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ---------------------------------- */
+/* ドットナビゲーション (Expanding Pill) */
+/* ---------------------------------- */
+.dots-container { 
+    text-align: center; 
+    margin-top: 25px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* ドット間の隙間 */
+}
+
+/* 通常のドット（共通設定） */
+.dot, .dotPre { 
+    cursor: pointer; 
+    height: 6px; 
+    width: 6px; 
+    background-color: #ddd; /* 薄いグレー（未選択時） */
+    border-radius: 100px; /* 角丸を最大にして円にする */
+    display: inline-block; 
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* スムーズな伸縮アニメーション */
+    
+    /* buttonタグのリセット */
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ホバー時 */
+.dot:hover, .dotPre:hover {
+    background-color: #bbb;
+}
+
+/* アクティブ（選択中）のドット */
+/* 横に伸びるアニメーションでトレンド感を演出 */
+.active-dot, .dotPre.active-dot { 
+    background-color: var(--accent-color); /* テーマカラー */
+    width: 24px; /* 横幅を伸ばす */
     opacity: 1;
 }
 
-/* 押した時の視覚フィードバック: 移動させないで明度で表現 */
-.prev-arrow:active, .next-arrow:active {
-    background-color: rgba(240,240,240,0.98);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+/* --- Seating Chart --- */
+.seating-chart-area {
+    text-align: center;
 }
 
-
-/* Seating Chart */
-.seating-chart-area { text-align: center; }
-.seating-chart-area img { width: 90%; max-width: 400px; margin: 0 auto; border: 2px solid var(--accent-color); border-radius: 8px; cursor: pointer; transition: opacity 0.3s; }
-.seating-chart-area img:hover { opacity: 0.8; }
-.seating-chart-area p { font-size: 0.9rem; margin-top: 15px; color: #777; }
-
-/* Photo Share Section (中央揃え修正) */
-.share-text { text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
-.share-buttons { 
-    /* 修正点: Flexコンテナの幅を親要素に合わせ、要素を中央に寄せる */
-    display: flex; 
-    flex-direction: column; 
-    gap: 20px; 
-    align-items: center; /* 内部のボタンを水平中央に配置 */
-    max-width: 300px; /* ボタン群の幅を制限 */
-    margin: 0 auto; /* ★★★ コンテナ自体を中央に配置する修正 ★★★ */
+.seating-chart-area img {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 15px;
+    border: 2px solid var(--accent-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-light);
 }
-.share-btn { 
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    width: 100%; /* 親要素のmax-width: 300pxに依存 */
-    padding: 15px 0; 
-    background-color: var(--accent-color); 
-    color: #fff; text-decoration: none; 
-    border-radius: 50px; 
-    transition: transform 0.2s, background-color 0.2s; 
-    box-shadow: 0 4px 10px rgba(197, 180, 163, 0.4); 
-}
-.share-btn:active { transform: scale(0.98); }
-.share-btn span:first-child { font-family: var(--font-en); font-size: 1.2rem; line-height: 1.2; }
-.share-btn .jp-label { font-size: 0.75rem; opacity: 0.9; margin-top: 2px; font-family: var(--font-jp); }
 
-/* Footer */
-footer { text-align: center; padding: 50px 0; font-family: var(--font-en); font-size: 0.8rem; color: #aaa; }
+.seating-chart-area img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-medium);
+}
+
+.seating-chart-area p {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 15px;
+}
+
+/* --- Share Photos --- */
+.share-text {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 0.95rem;
+    line-height: 2;
+}
+
+.share-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.share-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+    color: var(--white);
+    border-radius: 50px;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.share-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.share-btn:hover::before,
+.share-btn:focus::before {
+    width: 300px;
+    height: 300px;
+}
+
+.share-btn:hover,
+.share-btn:focus {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.share-btn:active {
+    transform: translateY(0);
+}
+
+.share-btn span:first-child {
+    font-family: var(--font-en);
+    font-size: 1.3rem;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+}
+
+.share-btn .jp-label {
+    font-size: 0.8rem;
+    opacity: 0.95;
+    margin-top: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 60px 20px;
+    font-family: var(--font-en);
+    font-size: 0.9rem;
+    color: #AAA;
+    border-top: 1px solid rgba(197, 180, 163, 0.2);
+}
+
+footer p {
+    margin: 8px 0;
+}
+
+/* --- Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.is-active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: var(--shadow-heavy);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#imgModalContent {
+    background: none;
+    padding: 0;
+    width: auto;
+    height: auto;
+    max-width: 95vw;
+    max-height: 95vh;
+}
+
+#imgModalContent img {
+    max-width: 100%;
+    max-height: 95vh;
+    display: block;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--white);
+    transition: all var(--transition-fast);
+    z-index: 210;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+
+#menuModal .close-btn {
+    color: var(--text-color);
+    background: transparent;
+}
+
+#menuModal .close-btn:hover,
+#menuModal .close-btn:focus {
+    background: rgba(197, 180, 163, 0.1);
+}
+
+/* --- Menu List --- */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.menu-list li {
+    margin: 8px 0;
+}
+
+.menu-list a {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(197, 180, 163, 0.2);
+    transition: all var(--transition-fast);
+    font-family: var(--font-en);
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.menu-list a:hover,
+.menu-list a:focus {
+    color: var(--accent-color);
+    background: rgba(197, 180, 163, 0.08);
+    border-bottom-color: var(--accent-color);
+}
+
+.menu-list .jp-nav {
+    font-size: 0.85rem;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-top: 4px;
+    font-family: var(--font-jp);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 480px) {
+    .hero-img {
+        height: 50vh;
+    }
+
+    .slideshow-container {
+        height: 280px;
+    }
+
+    .story-item {
+        flex-direction: column !important;
+        gap: 15px;
+    }
+
+    .story-item:nth-child(even) .story-content {
+        text-align: left;
+    }
+
+    .story-img-box {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .story-img-box img {
+        height: 200px;
+    }
+
+    .profile-img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .prev-arrow,
+    .next-arrow {
+        padding: 10px 12px;
+        font-size: 18px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 40px;
+    }
+
+    .hero-img {
+        max-width: 500px;
+    }
+
+    .slideshow-container {
+        height: 400px;
+    }
+
+    section {
+        padding: 100px 0;
+    }
+}
+
+/* --- Print Styles --- */
+@media print {
+    .menu-btn,
+    .modal,
+    .prev-arrow,
+    .next-arrow,
+    .dots-container,
+    .loading-overlay {
+        display: none !important;
+    }
+
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+}
+
+/* --- Prefers Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

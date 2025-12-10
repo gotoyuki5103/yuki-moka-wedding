@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yuki & Mokaの結婚式プロフィールブック。2026年4月11日、ホテル椿山荘東京にて。">
+    <meta property="og:title" content="Wedding Profile Book | Yuki & Moka">
+    <meta property="og:description" content="Yuki & Mokaの結婚式プロフィールブック">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/hero.jpg">
     <title>Wedding Profile Book | Yuki & Moka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="menu-btn" id="openMenuModal">
-        <span>&equiv;</span>
+    <!-- メニューボタン -->
+    <button class="menu-btn" id="openMenuModal" aria-label="メニューを開く">
+        <span aria-hidden="true">&equiv;</span>
+    </button>
+
+    <!-- ローディング表示 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
     </div>
 
+    <!-- ヒーローセクション -->
     <header class="hero container fade-in" id="top">
-        <img src="images/hero.jpg" alt="Wedding Couple" class="hero-img">
-        
+        <img src="images/hero.jpg" alt="結婚式のカップル写真" class="hero-img" loading="eager">
         <h1 class="hero-title">Yuki & Moka</h1>
         <p class="hero-date">2026.04.11 | Hotel Chinzanso Tokyo</p>
     </header>
 
+    <!-- ご挨拶 -->
     <section class="container fade-in" id="greeting">
         <h2 class="section-title">Greeting</h2>
         <div class="greeting-text">
@@ -29,12 +44,13 @@
         </div>
     </section>
 
+    <!-- プロフィール -->
     <section class="container fade-in" id="profile">
         <h2 class="section-title">Profile</h2>
         
         <div class="profile-card">
-            <img src="images/profile/yuki.jpg" alt="Groom" class="profile-img">
-            <h3 class="profile-name">Yuki Goto</h3> 
+            <img src="images/profile/yuki.jpg" alt="新郎 Yuki Gotoのプロフィール写真" class="profile-img" loading="lazy">
+            <h3 class="profile-name">Yuki Goto</h3>
             <p class="profile-desc">
                 1998年生まれ、岡山県出身。<br>
                 趣味は温泉に入ったり、ゆっくりすること。<br>
@@ -44,7 +60,7 @@
         </div>
 
         <div class="profile-card">
-            <img src="images/profile/moka.jpg" alt="Bride" class="profile-img">
+            <img src="images/profile/moka.jpg" alt="新婦 Moka Suzukiのプロフィール写真" class="profile-img" loading="lazy">
             <h3 class="profile-name">Moka Suzuki</h3>
             <p class="profile-desc">
                 1999年生まれ、東京都出身。<br>
@@ -55,12 +71,13 @@
         </div>
     </section>
     
+    <!-- 二人の物語 -->
     <section class="container fade-in" id="story">
         <h2 class="section-title">Our Story</h2>
 
         <div class="story-item">
             <div class="story-img-box">
-                <img src="images/story/01.jpg" alt="Story Photo 1">
+                <img src="images/story/01.jpg" alt="初デート キャンプの思い出" loading="lazy">
             </div>
             <div class="story-content">
                 <h4>2022.05.20 | First Date</h4>
@@ -70,7 +87,7 @@
 
         <div class="story-item">
             <div class="story-img-box">
-                <img src="images/story/02.jpg" alt="Story Photo 2">
+                <img src="images/story/02.jpg" alt="プロポーズ 海辺での思い出" loading="lazy">
             </div>
             <div class="story-content">
                 <h4>2023.11.15 | Proposal</h4>
@@ -80,7 +97,7 @@
 
         <div class="story-item">
             <div class="story-img-box">
-                <img src="images/story/03.jpg" alt="Story Photo 3">
+                <img src="images/story/03.jpg" alt="同棲開始 新生活の思い出" loading="lazy">
             </div>
             <div class="story-content">
                 <h4>2024.03.01 | Together</h4>
@@ -89,82 +106,80 @@
         </div>
     </section>
 
+    <!-- 前撮り写真 -->
     <section class="container fade-in" id="preshoot">
-        <h2 class="section-title">PRESHOOT</h2>
+        <h2 class="section-title">Pre-shoot</h2>
         
-        <div class="slideshow-container" id="slideshowPre">
-            <!-- スライドはJSで動的に生成されます -->
-            <a class="prev-arrow" onclick="plusSlidesPre(-1)">&#10094;</a>
-            <a class="next-arrow" onclick="plusSlidesPre(1)">&#10095;</a>
+        <div class="slideshow-container" id="slideshowPre" role="region" aria-label="前撮り写真スライドショー">
+            <button class="prev-arrow" onclick="plusSlidesPre(-1)" aria-label="前の写真">&#10094;</button>
+            <button class="next-arrow" onclick="plusSlidesPre(1)" aria-label="次の写真">&#10095;</button>
         </div>
-        <br>
-        <div class="dots-container" id="dotsPreshoot" style="text-align:center">
-            <!-- ドットはJSで動的に生成されます -->
-        </div>
+        <div class="dots-container" id="dotsPreshoot" role="tablist" aria-label="写真ナビゲーション"></div>
     </section>
 
+    <!-- 思い出の写真 -->
     <section class="container fade-in" id="memories">
-        <h2 class="section-title">MEMORIES</h2>
+        <h2 class="section-title">Memories</h2>
         
-        <div class="slideshow-container" id="slideshow">
-            <!-- スライドはJSで動的に生成されます -->
-            <a class="prev-arrow" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next-arrow" onclick="plusSlides(1)">&#10095;</a>
+        <div class="slideshow-container" id="slideshow" role="region" aria-label="思い出の写真スライドショー">
+            <button class="prev-arrow" onclick="plusSlides(-1)" aria-label="前の写真">&#10094;</button>
+            <button class="next-arrow" onclick="plusSlides(1)" aria-label="次の写真">&#10095;</button>
         </div>
-        <br>
-        <div class="dots-container" id="dotsMemories" style="text-align:center">
-            <!-- ドットはJSで動的に生成されます -->
-        </div>
-        
+        <div class="dots-container" id="dotsMemories" role="tablist" aria-label="写真ナビゲーション"></div>
     </section>
 
+    <!-- 席次表 -->
     <section class="container fade-in" id="seating-chart">
         <h2 class="section-title">Seating Chart</h2>
         <div class="seating-chart-area">
-            <img src="https://via.placeholder.com/800x600?text=Seating+Chart+Example" alt="Seating Chart" id="seatingChartImg">
+            <img src="https://via.placeholder.com/800x600?text=Seating+Chart+Example" alt="席次表" id="seatingChartImg" loading="lazy">
             <p>※画像をタップすると拡大表示されます。</p>
         </div>
     </section>
     
+    <!-- 写真共有 -->
     <section class="container fade-in" id="share-photos">
         <h2 class="section-title">Share Photos</h2>
         <div class="share-text">
-            <p>本日の思い出の写真を<br>ぜひここからシェアしてください。<br>グループごとにアルバムを用意しました。</p>
+            <p>本日の思い出の写真を<br>ぜひこちらからシェアしてください。<br>グループごとにアルバムを用意しました。</p>
         </div>
         
         <div class="share-buttons">
-            <a href="https://photos.app.goo.gl/xxxxxxxxxxxx" target="_blank" class="share-btn">
+            <a href="https://photos.app.goo.gl/xxxxxxxxxxxx" target="_blank" rel="noopener noreferrer" class="share-btn">
                 <span>For Friends</span>
                 <span class="jp-label">友人・同僚の方はこちら</span>
             </a>
 
-            <a href="https://photos.app.goo.gl/yyyyyyyyyyyy" target="_blank" class="share-btn">
+            <a href="https://photos.app.goo.gl/yyyyyyyyyyyy" target="_blank" rel="noopener noreferrer" class="share-btn">
                 <span>For Family</span>
                 <span class="jp-label">親族の方はこちら</span>
             </a>
 
-            <a href="https://photos.app.goo.gl/zzzzzzzzzzzz" target="_blank" class="share-btn">
+            <a href="https://photos.app.goo.gl/zzzzzzzzzzzz" target="_blank" rel="noopener noreferrer" class="share-btn">
                 <span>All Guests</span>
                 <span class="jp-label">その他の方はこちら</span>
             </a>
         </div>
     </section>
 
+    <!-- フッター -->
     <footer>
         <p>Thank you for coming today.</p>
         <p>Yuki & Moka</p>
     </footer>
 
-    <div id="menuModal" class="modal">
+    <!-- メニューモーダル -->
+    <div id="menuModal" class="modal" role="dialog" aria-labelledby="menuTitle" aria-modal="true">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <button class="close-btn" aria-label="メニューを閉じる">&times;</button>
+            <h2 id="menuTitle" class="sr-only">メニュー</h2>
             <nav>
                 <ul class="menu-list">
                     <li><a href="#top">TOP<span class="jp-nav">トップ</span></a></li>
                     <li><a href="#greeting">GREETING<span class="jp-nav">ごあいさつ</span></a></li>
                     <li><a href="#profile">PROFILE<span class="jp-nav">プロフィール</span></a></li>
                     <li><a href="#story">OUR STORY<span class="jp-nav">二人の物語</span></a></li>
-                    <li><a href="#preshoot">PRESHOOT<span class="jp-nav">前撮り</span></a></li>
+                    <li><a href="#preshoot">PRE-SHOOT<span class="jp-nav">前撮り</span></a></li>
                     <li><a href="#memories">MEMORIES<span class="jp-nav">思い出の写真</span></a></li>
                     <li><a href="#seating-chart">SEATING CHART<span class="jp-nav">席次表</span></a></li>
                     <li><a href="#share-photos">SHARE PHOTOS<span class="jp-nav">写真の共有</span></a></li>
@@ -173,215 +188,260 @@
         </div>
     </div>
 
-    <div id="imgModal" class="modal">
-        <span class="close-btn">&times;</span>
+    <!-- 画像拡大モーダル -->
+    <div id="imgModal" class="modal" role="dialog" aria-label="画像拡大表示" aria-modal="true">
+        <button class="close-btn" aria-label="閉じる">&times;</button>
         <div class="modal-content" id="imgModalContent">
-            <img class="modal-img" id="expandedImg">
+            <img class="modal-img" id="expandedImg" alt="拡大画像">
         </div>
     </div>
 
-
     <script>
-        // ==================================
-        // JavaScript (スライドショー、スクロールアニメーション & モーダル)
-        // ==================================
+        // =====================================
+        // 設定とユーティリティ
+        // =====================================
+        const CONFIG = {
+            sliders: {
+                memories: { folder: 'images/memories', count: 5 },
+                preshoot: { folder: 'images/preshoot', count: 7 }
+            },
+            autoPlayInterval: 4000,
+            swipeThreshold: 50,
+            maxDetectCount: 50
+        };
 
-        // --- 0. config.json の読み込みと動的スライド生成、画像数の自動検出 ---
-
-        /**
-         * 指定されたフォルダ内の連番画像ファイル（01.jpg, 02.jpg...）の数を自動検出する
-         * @param {string} folderPath - 画像フォルダのパス (例: 'images/memories')
-         * @param {number} maxCount - 検索する最大の画像数
-         * @returns {Promise<number>} 見つかった画像ファイルの数
-         */
-        async function detectImageCount(folderPath, maxCount = 50) {
-            let count = 0;
-            for (let i = 1; i <= maxCount; i++) {
-                const fileName = `${String(i).padStart(2, '0')}.jpg`;
-                const url = `${folderPath}/${fileName}`;
-
-                try {
-                    // HEADリクエストでコンテンツを取得せずに存在チェック
-                    const response = await fetch(url, { method: 'HEAD' });
+        // =====================================
+        // 画像の自動検出（最適化版）
+        // =====================================
+        async function detectImageCount(folderPath, maxCount = CONFIG.maxDetectCount) {
+            const results = await Promise.all(
+                Array.from({ length: maxCount }, (_, i) => {
+                    const fileName = `${String(i + 1).padStart(2, '0')}.jpg`;
+                    const url = `${folderPath}/${fileName}`;
                     
-                    // HTTPステータス200-299の範囲が成功
-                    if (response.ok) {
-                        count++;
-                    } else {
-                        // 404 Not Found など、ファイルが存在しない場合はループを終了
-                        break;
-                    }
-                } catch (error) {
-                    // ネットワークエラーなどが発生した場合も終了
-                    console.error(`Error checking image: ${url}`, error);
-                    break;
-                }
-            }
-            return count;
+                    return fetch(url, { method: 'HEAD' })
+                        .then(response => response.ok)
+                        .catch(() => false);
+                })
+            );
+            
+            const lastValidIndex = results.lastIndexOf(true);
+            return lastValidIndex + 1;
         }
 
+        // =====================================
+        // スライダークラス
+        // =====================================
+        class Slider {
+            constructor(containerId, dotsContainerId, slideClass, dotClass, folder, count) {
+                this.containerId = containerId;
+                this.dotsContainerId = dotsContainerId;
+                this.slideClass = slideClass;
+                this.dotClass = dotClass;
+                this.folder = folder;
+                this.count = count;
+                this.currentIndex = 1;
+                this.timer = null;
+                this.touchStartX = 0;
+                this.isTransitioning = false;
+            }
 
-        async function initDynamicSliders() {
-            let config = {
-                sliders: {
-                    memories: { folder: 'images/memories', count: 5 }, // デフォルト値
-                    preshoot: { folder: 'images/preshoot', count: 5 }
-                }
-            };
-
-            try {
-                // config.json の読み込み（フォルダパスの取得のため）
-                const response = await fetch('config.json');
-                const jsonConfig = await response.json();
+            build() {
+                const container = document.getElementById(this.containerId);
+                const dotsContainer = document.getElementById(this.dotsContainerId);
                 
-                // フォルダパスをconfigから取得（countは自動検出で上書きされる）
-                config = jsonConfig;
-            } catch (error) {
-                console.warn('config.json の読み込みに失敗しました。デフォルトのパスを使用します。', error);
-                // エラー時もconfigのデフォルト値を使用し、処理を続行
-            }
+                if (!container || !dotsContainer || this.count === 0) return;
 
-            // --- 画像数の自動検出 ---
-            
-            // MEMORIES
-            const memoriesCount = await detectImageCount(config.sliders.memories.folder);
-            if (memoriesCount > 0) {
-                config.sliders.memories.count = memoriesCount;
-            }
-            console.log(`MEMORIES images detected: ${config.sliders.memories.count}`);
-            
-            // PRESHOOT
-            const preshootCount = await detectImageCount(config.sliders.preshoot.folder);
-            if (preshootCount > 0) {
-                config.sliders.preshoot.count = preshootCount;
-            }
-            console.log(`PRESHOOT images detected: ${config.sliders.preshoot.count}`);
-        
-            
-            // --- スライダーの構築 ---
-            
-            // MEMORIES セクション
-            buildSlider('slideshow', 'dotsMemories', 'mySlides', 'dot', config.sliders.memories.folder, config.sliders.memories.count);
-            
-            // PRESHOOT セクション
-            buildSlider('slideshowPre', 'dotsPreshoot', 'mySlidesPre', 'dotPre', config.sliders.preshoot.folder, config.sliders.preshoot.count);
-        
-            // 初期表示
-            slideIndex = 1;
-            preSlideIndex = 1;
-            // DOM構築後に最初のスライドを確実に表示するため、短い遅延で呼び出す
-            setTimeout(() => {
-                if (config.sliders.memories.count > 0 && typeof showSlides === 'function') showSlides(slideIndex);
-                if (config.sliders.preshoot.count > 0 && typeof showSlidesPre === 'function') showSlidesPre(preSlideIndex);
-            }, 50);
-        }
-
-        // スライドとドットを動的に生成する関数
-        function buildSlider(containerId, dotsContainerId, slideClass, dotClass, folder, count) {
-            const container = document.getElementById(containerId);
-            const dotsContainer = document.getElementById(dotsContainerId);
-            
-            if (!container || !dotsContainer || count === 0) return;
-
-            // スライド要素を生成
-            for (let i = 1; i <= count; i++) {
-                const slide = document.createElement('div');
-                slide.className = `${slideClass} fade-slide`;
-                const img = document.createElement('img');
-                img.src = `${folder}/${String(i).padStart(2, '0')}.jpg`;
-                img.alt = `Photo ${i}`;
-                slide.appendChild(img);
-                // 矢印ボタンの手前に挿入（矢印ボタンがcontainerの最後にあると想定）
+                // スライド生成
+                const fragment = document.createDocumentFragment();
+                for (let i = 1; i <= this.count; i++) {
+                    const slide = document.createElement('div');
+                    slide.className = `${this.slideClass} fade-slide`;
+                    
+                    const img = document.createElement('img');
+                    img.src = `${this.folder}/${String(i).padStart(2, '0')}.jpg`;
+                    img.alt = `写真 ${i}`;
+                    img.loading = 'lazy';
+                    
+                    slide.appendChild(img);
+                    fragment.appendChild(slide);
+                }
+                
                 const arrow = container.querySelector('.prev-arrow');
                 if (arrow) {
-                    container.insertBefore(slide, arrow);
+                    container.insertBefore(fragment, arrow);
                 } else {
-                    container.appendChild(slide); // 矢印がない場合は最後に追加
+                    container.appendChild(fragment);
+                }
+
+                // ドット生成
+                const dotsFragment = document.createDocumentFragment();
+                for (let i = 1; i <= this.count; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = this.dotClass;
+                    dot.setAttribute('role', 'tab');
+                    dot.setAttribute('aria-label', `写真 ${i}を表示`);
+                    dot.onclick = () => this.goToSlide(i);
+                    dotsFragment.appendChild(dot);
+                }
+                dotsContainer.appendChild(dotsFragment);
+
+                // イベントリスナー
+                this.setupEventListeners(container);
+            }
+
+            setupEventListeners(container) {
+                // タッチイベント
+                container.addEventListener('touchstart', (e) => {
+                    this.touchStartX = e.touches[0].clientX;
+                    this.stopAutoPlay();
+                }, { passive: true });
+
+                container.addEventListener('touchend', (e) => {
+                    if (this.isTransitioning) return;
+                    
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const diff = this.touchStartX - touchEndX;
+                    
+                    if (Math.abs(diff) > CONFIG.swipeThreshold) {
+                        this.navigate(diff > 0 ? 1 : -1);
+                    }
+                    this.startAutoPlay();
+                }, { passive: true });
+
+                // キーボードナビゲーション
+                container.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.navigate(-1);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        this.navigate(1);
+                    }
+                });
+            }
+
+            navigate(direction) {
+                if (this.isTransitioning) return;
+                this.stopAutoPlay();
+                this.show(this.currentIndex + direction);
+            }
+
+            goToSlide(index) {
+                if (this.isTransitioning) return;
+                this.stopAutoPlay();
+                this.show(index);
+            }
+
+            show(n) {
+                if (this.isTransitioning) return;
+                this.isTransitioning = true;
+
+                const slides = document.getElementsByClassName(this.slideClass);
+                const dots = document.getElementsByClassName(this.dotClass);
+
+                if (slides.length === 0) {
+                    this.isTransitioning = false;
+                    return;
+                }
+
+                if (n > slides.length) this.currentIndex = 1;
+                else if (n < 1) this.currentIndex = slides.length;
+                else this.currentIndex = n;
+
+                Array.from(slides).forEach(slide => slide.style.display = 'none');
+                Array.from(dots).forEach(dot => {
+                    dot.classList.remove('active-dot');
+                    dot.setAttribute('aria-selected', 'false');
+                });
+
+                slides[this.currentIndex - 1].style.display = 'block';
+                if (dots[this.currentIndex - 1]) {
+                    dots[this.currentIndex - 1].classList.add('active-dot');
+                    dots[this.currentIndex - 1].setAttribute('aria-selected', 'true');
+                }
+
+                setTimeout(() => {
+                    this.isTransitioning = false;
+                    this.startAutoPlay();
+                }, 100);
+            }
+
+            startAutoPlay() {
+                this.stopAutoPlay();
+                this.timer = setTimeout(() => {
+                    this.show(this.currentIndex + 1);
+                }, CONFIG.autoPlayInterval);
+            }
+
+            stopAutoPlay() {
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                    this.timer = null;
                 }
             }
+        }
 
-            // ドット要素を生成
-            for (let i = 1; i <= count; i++) {
-                const dot = document.createElement('span');
-                dot.className = dotClass;
-                dot.onclick = () => {
-                    if (slideClass === 'mySlides') currentSlide(i);
-                    else if (slideClass === 'mySlidesPre') currentSlidePre(i);
-                };
-                dotsContainer.appendChild(dot);
+        // =====================================
+        // 初期化
+        // =====================================
+        let memoriesSlider, preshootSlider;
+
+        async function initSliders() {
+            try {
+                const response = await fetch('config.json');
+                const jsonConfig = await response.json();
+                Object.assign(CONFIG.sliders, jsonConfig.sliders);
+            } catch (error) {
+                console.warn('config.jsonの読み込みに失敗しました。デフォルト設定を使用します。', error);
             }
+
+            // 画像数の自動検出
+            const [memoriesCount, preshootCount] = await Promise.all([
+                detectImageCount(CONFIG.sliders.memories.folder),
+                detectImageCount(CONFIG.sliders.preshoot.folder)
+            ]);
+
+            if (memoriesCount > 0) CONFIG.sliders.memories.count = memoriesCount;
+            if (preshootCount > 0) CONFIG.sliders.preshoot.count = preshootCount;
+
+            console.log(`MEMORIES: ${CONFIG.sliders.memories.count}枚, PRESHOOT: ${CONFIG.sliders.preshoot.count}枚`);
+
+            // スライダー構築
+            memoriesSlider = new Slider(
+                'slideshow', 'dotsMemories', 'mySlides', 'dot',
+                CONFIG.sliders.memories.folder, CONFIG.sliders.memories.count
+            );
+            memoriesSlider.build();
+
+            preshootSlider = new Slider(
+                'slideshowPre', 'dotsPreshoot', 'mySlidesPre', 'dotPre',
+                CONFIG.sliders.preshoot.folder, CONFIG.sliders.preshoot.count
+            );
+            preshootSlider.build();
+
+            // 初期表示
+            setTimeout(() => {
+                if (memoriesSlider) memoriesSlider.show(1);
+                if (preshootSlider) preshootSlider.show(1);
+                hideLoading();
+            }, 100);
         }
 
-        // ページ読み込み後に実行
-        document.addEventListener('DOMContentLoaded', initDynamicSliders);
-        
-        // --- 1. Slideshow (MEMORIES) ---
-        let slideIndex = 1; 
-        let slideTimer;
-        let startX = 0; 
+        // グローバル関数（HTML onclick用）
+        function plusSlides(n) { if (memoriesSlider) memoriesSlider.navigate(n); }
+        function currentSlide(n) { if (memoriesSlider) memoriesSlider.goToSlide(n); }
+        function plusSlidesPre(n) { if (preshootSlider) preshootSlider.navigate(n); }
+        function currentSlidePre(n) { if (preshootSlider) preshootSlider.goToSlide(n); }
 
-        function plusSlides(n) {
-            clearTimeout(slideTimer);
-            showSlides(slideIndex += n);
-        }
+        // =====================================
+        // フェードインアニメーション
+        // =====================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function currentSlide(n) {
-            clearTimeout(slideTimer);
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            let i;
-            const slides = document.getElementsByClassName("mySlides");
-            const dots = document.getElementsByClassName("dot");
-
-            if (slides.length === 0) return; // スライドがない場合は処理を中断
-
-            if (n > slides.length) {slideIndex = 1}    
-            if (n < 1) {slideIndex = slides.length}
-            
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-                if (dots[i]) dots[i].className = dots[i].className.replace(" active-dot", "");
-            }
-            
-            slides[slideIndex-1].style.display = "block";  
-            if (dots[slideIndex-1]) dots[slideIndex-1].className += " active-dot";
-            
-            clearTimeout(slideTimer);
-            slideTimer = setTimeout(function() {
-                showSlides(slideIndex += 1);
-            }, 4000); 
-        }
-
-        // スワイプ操作 (MEMORIES)
-        // DOM構築後の初期化のためsetTimeoutで囲う
-        setTimeout(() => {
-            const slideshowContainer = document.getElementById('slideshow');
-            if (slideshowContainer) {
-                slideshowContainer.addEventListener('touchstart', function(event) {
-                    startX = event.touches[0].clientX;
-                    clearTimeout(slideTimer); 
-                });
-
-                slideshowContainer.addEventListener('touchend', function(event) {
-                    const endX = event.changedTouches[0].clientX;
-                    const threshold = 50; 
-                    
-                    if (startX - endX > threshold) {
-                        plusSlides(1); // 次のスライド
-                    } else if (endX - startX > threshold) {
-                        plusSlides(-1); // 前のスライド
-                    }
-                    
-                    slideTimer = setTimeout(function() {
-                        showSlides(slideIndex += 1);
-                    }, 4000);
-                });
-            }
-        }, 100);
-
-        // --- 2. フェードインアニメーション（既存） ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -389,130 +449,104 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { 
-            threshold: 0.1 
-        });
+        }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+        // =====================================
+        // モーダル制御
+        // =====================================
+        function initModals() {
+            const menuModal = document.getElementById('menuModal');
+            const imgModal = document.getElementById('imgModal');
+            const openMenuBtn = document.getElementById('openMenuModal');
+            const seatingChartImg = document.getElementById('seatingChartImg');
+            const expandedImg = document.getElementById('expandedImg');
 
-        // --- 3. モーダル（ポップアップ）制御（既存） ---
-        
-        const menuModal = document.getElementById('menuModal');
-        const imgModal = document.getElementById('imgModal');
-        const openMenuBtn = document.getElementById('openMenuModal');
-        const seatingChartImg = document.getElementById('seatingChartImg');
-        const expandedImg = document.getElementById('expandedImg');
-        const menuLinks = document.querySelectorAll('#menuModal a');
+            // メニューを開く
+            openMenuBtn.addEventListener('click', () => {
+                menuModal.classList.add('is-active');
+                document.body.style.overflow = 'hidden';
+            });
 
-        openMenuBtn.onclick = function() {
-            menuModal.classList.add('is-active');
-        }
+            // 席次表を拡大
+            seatingChartImg.addEventListener('click', () => {
+                imgModal.classList.add('is-active');
+                expandedImg.src = seatingChartImg.src;
+                expandedImg.alt = seatingChartImg.alt;
+                document.body.style.overflow = 'hidden';
+            });
 
-        seatingChartImg.onclick = function() {
-            imgModal.classList.add('is-active');
-            expandedImg.src = this.src;
-            document.querySelector('#imgModal .close-btn').style.color = '#fff';
-        }
+            // 閉じるボタン
+            document.querySelectorAll('.modal .close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').classList.remove('is-active');
+                    document.body.style.overflow = '';
+                });
+            });
 
-        document.querySelectorAll('.modal .close-btn').forEach(btn => {
-            btn.onclick = function() {
-                this.closest('.modal').classList.remove('is-active');
-            }
-        });
+            // 背景クリックで閉じる
+            [menuModal, imgModal].forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('is-active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
 
-        window.onclick = function(event) {
-            if (event.target == menuModal) {
-                menuModal.classList.remove('is-active');
-            }
-            if (event.target == imgModal) {
-                imgModal.classList.remove('is-active');
-            }
-        }
+            // メニューリンククリック
+            document.querySelectorAll('#menuModal a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    menuModal.classList.remove('is-active');
+                    document.body.style.overflow = '';
+                    
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
 
-        menuLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                menuModal.classList.remove('is-active'); 
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 20;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
+            // Escキーで閉じる
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    menuModal.classList.remove('is-active');
+                    imgModal.classList.remove('is-active');
+                    document.body.style.overflow = '';
                 }
             });
+        }
+
+        // =====================================
+        // ローディング制御
+        // =====================================
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+
+        // =====================================
+        // 初期化実行
+        // =====================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // フェードイン監視
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            
+            // モーダル初期化
+            initModals();
+            
+            // スライダー初期化
+            initSliders();
         });
-
-        // --- 4. 前撮りギャラリー用スライド制御 (PRESHOOT) ---
-        let preSlideIndex = 1;
-        let preSlideTimer;
-        let preStartX = 0;
-
-        function plusSlidesPre(n) {
-            clearTimeout(preSlideTimer);
-            showSlidesPre(preSlideIndex += n);
-        }
-
-        function currentSlidePre(n) {
-            clearTimeout(preSlideTimer);
-            showSlidesPre(preSlideIndex = n);
-        }
-
-        function showSlidesPre(n) {
-            let i;
-            const slides = document.getElementsByClassName("mySlidesPre");
-            const dots = document.getElementsByClassName("dotPre");
-
-            if (slides.length === 0) return;
-
-            if (n > slides.length) { preSlideIndex = 1 }
-            if (n < 1) { preSlideIndex = slides.length }
-
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-                if (dots[i]) dots[i].className = dots[i].className.replace(" active-dot", "");
-            }
-
-            slides[preSlideIndex-1].style.display = "block";
-            if (dots[preSlideIndex-1]) dots[preSlideIndex-1].className += " active-dot";
-
-            clearTimeout(preSlideTimer);
-            preSlideTimer = setTimeout(function() {
-                showSlidesPre(preSlideIndex += 1);
-            }, 4000);
-        }
-
-        // タッチ操作（前撮り）
-        // DOM構築後の初期化のためsetTimeoutで囲う
-        setTimeout(() => {
-            const slideshowPreContainer = document.getElementById('slideshowPre');
-            if (slideshowPreContainer) {
-                slideshowPreContainer.addEventListener('touchstart', function(event) {
-                    preStartX = event.touches[0].clientX;
-                    clearTimeout(preSlideTimer);
-                });
-
-                slideshowPreContainer.addEventListener('touchend', function(event) {
-                    const endX = event.changedTouches[0].clientX;
-                    const threshold = 50;
-                    if (preStartX - endX > threshold) {
-                        plusSlidesPre(1);
-                    } else if (endX - preStartX > threshold) {
-                        plusSlidesPre(-1);
-                    }
-
-                    preSlideTimer = setTimeout(function() {
-                        showSlidesPre(preSlideIndex += 1);
-                    }, 4000);
-                });
-            }
-        }, 100);
-
     </script>
 </body>
 </html>
