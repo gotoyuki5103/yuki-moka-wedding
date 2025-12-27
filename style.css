@@ -318,21 +318,29 @@ section {
     max-width: 560px; 
     position: relative; 
     margin: auto; 
-    height: 350px; /* コンテナの高さを固定 */
+    height: 350px; /* PC・タブレット用の固定高さ */
     display: flex; 
-    align-items: center; /* 垂直方向中央揃え */
+    align-items: center; 
     justify-content: center; 
     background-color: transparent;
+    overflow: visible; /* 影やボタンが切れないように */
 }
 
+/* 重要：JSで block になっても中央揃えを維持 */
 .mySlides, .mySlidesPre { 
     display: none; 
     width: 100%; 
     height: 100%; 
-    /* 中身の画像を中央に配置するための指定を追加 */
-    display: flex; 
+    /* 中身の画像を上下左右中央に配置 */
+    flex-direction: column;
     align-items: center; 
     justify-content: center;
+}
+
+/* JSの display: block 命令を強制的に flex として扱う */
+.mySlides[style*="display: block"],
+.mySlidesPre[style*="display: block"] {
+    display: flex !important;
 }
 
 .mySlides img, .mySlidesPre img { 
@@ -343,7 +351,7 @@ section {
     object-fit: contain; 
     border-radius: 8px; 
     box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
-    margin: 0; 
+    margin: 0 auto; /* 左右中央寄せの担保 */
 }
 
 /* フェードアニメーション */
@@ -357,7 +365,7 @@ section {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%); /* ボタンの中心をコンテナの50%に合わせる */
+    transform: translateY(-50%);
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -425,6 +433,10 @@ section {
     cursor: pointer;
     transition: all var(--transition-normal);
     box-shadow: var(--shadow-light);
+}
+
+.seating-chart-area img:hover {
+    transform: scale(1.02);
 }
 
 /* --- Share Photos --- */
@@ -514,7 +526,7 @@ footer {
 @media (max-width: 480px) {
     .hero-img { height: 50vh; }
 
-    /* スマホで画像がボタンの真ん中に来るように高さを調整 */
+    /* スマホで画像がボタンの真ん中に来るように高さを固定 */
     .slideshow-container, 
     .slideshow-container#slideshowPre {
         height: 280px; 
@@ -528,4 +540,12 @@ footer {
 @media (min-width: 768px) {
     .slideshow-container { height: 400px; }
     section { padding: 100px 0; }
+}
+
+/* --- Print Styles --- */
+@media print {
+    .menu-btn, .modal, .prev-arrow, .next-arrow, .dots-container, .loading-overlay {
+        display: none !important;
+    }
+    .fade-in { opacity: 1 !important; transform: none !important; }
 }
