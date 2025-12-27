@@ -1,5 +1,5 @@
 /* ================================== */
-/* Wedding Profile Book - Improved CSS */
+/* Wedding Profile Book - Full CSS    */
 /* ================================== */
 
 /* --- CSS Variables --- */
@@ -310,7 +310,7 @@ section {
 }
 
 /* ================================== */
-/* Slideshow / Gallery (Update)       */
+/* Slideshow / Gallery                */
 /* ================================== */
 
 .slideshow-container, 
@@ -318,18 +318,21 @@ section {
     max-width: 560px; 
     position: relative; 
     margin: auto; 
-    height: 350px; 
+    height: 350px; /* コンテナの高さを固定 */
     display: flex; 
-    align-items: center; 
+    align-items: center; /* 垂直方向中央揃え */
     justify-content: center; 
+    background-color: transparent;
 }
 
-/* スライド画像 */
 .mySlides, .mySlidesPre { 
     display: none; 
-    text-align: center; 
     width: 100%; 
     height: 100%; 
+    /* 中身の画像を中央に配置するための指定を追加 */
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 .mySlides img, .mySlidesPre img { 
@@ -339,121 +342,73 @@ section {
     height: auto; 
     object-fit: contain; 
     border-radius: 8px; 
-    /* 写真の影を少し柔らかく広げる */
     box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
-    margin: auto; 
+    margin: 0; 
 }
 
 /* フェードアニメーション */
 .fade-slide { 
-    -webkit-animation-name: fade; 
-    -webkit-animation-duration: 1.5s; 
-    animation-name: fade; 
-    animation-duration: 1.5s; 
+    animation: fade 1.5s; 
 }
-@-webkit-keyframes fade { from {opacity: .4} to {opacity: 1} }
 @keyframes fade { from {opacity: .4} to {opacity: 1} }
 
-
-/* ---------------------------------- */
-/* 矢印ボタン (Glassmorphism Design)  */
-/* ---------------------------------- */
+/* 矢印ボタン (Glassmorphism) */
 .prev-arrow, .next-arrow {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    
-    /* 綺麗な正円を作る */
+    transform: translateY(-50%); /* ボタンの中心をコンテナの50%に合わせる */
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    
-    /* フレックスボックスで矢印を中央揃え */
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    /* すりガラス風の背景 */
-    background-color: rgba(255, 255, 255, 0.25); /* 透明度のある白 */
-    backdrop-filter: blur(4px); /* 背景をぼかす */
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.4); /* うっすら白い枠線 */
-    
-    /* 矢印文字のスタイル */
+    border: 1px solid rgba(255, 255, 255, 0.4);
     color: #fff;
     font-size: 18px;
-    font-weight: 400;
-    
-    /* 影で浮遊感を出す */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s ease;
     z-index: 10;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    
-    /* ボタンリセット */
     padding: 0;
 }
 
-/* 位置調整 */
-.prev-arrow { left: 15px; padding-right: 2px; } /* 視覚的中心補正 */
-.next-arrow { right: 15px; padding-left: 2px; }
+.prev-arrow { left: 15px; }
+.next-arrow { right: 15px; }
 
-/* ホバー時の動き */
 .prev-arrow:hover, .next-arrow:hover {
     background-color: rgba(255, 255, 255, 0.5);
     transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* タップ時の動き */
-.prev-arrow:active, .next-arrow:active {
-    transform: translateY(-50%) scale(0.95);
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-
-/* ---------------------------------- */
-/* ドットナビゲーション (Expanding Pill) */
-/* ---------------------------------- */
+/* ドットナビゲーション */
 .dots-container { 
     text-align: center; 
     margin-top: 25px; 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px; /* ドット間の隙間 */
+    gap: 8px;
 }
 
-/* 通常のドット（共通設定） */
 .dot, .dotPre { 
     cursor: pointer; 
     height: 6px; 
     width: 6px; 
-    background-color: #ddd; /* 薄いグレー（未選択時） */
-    border-radius: 100px; /* 角丸を最大にして円にする */
+    background-color: #ddd;
+    border-radius: 100px;
     display: inline-block; 
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* スムーズな伸縮アニメーション */
-    
-    /* buttonタグのリセット */
+    transition: all 0.4s ease;
     border: none;
     padding: 0;
-    margin: 0;
 }
 
-/* ホバー時 */
-.dot:hover, .dotPre:hover {
-    background-color: #bbb;
-}
-
-/* アクティブ（選択中）のドット */
-/* 横に伸びるアニメーションでトレンド感を演出 */
 .active-dot, .dotPre.active-dot { 
-    background-color: var(--accent-color); /* テーマカラー */
-    width: 24px; /* 横幅を伸ばす */
-    opacity: 1;
+    background-color: var(--accent-color);
+    width: 24px;
 }
 
 /* --- Seating Chart --- */
@@ -472,25 +427,7 @@ section {
     box-shadow: var(--shadow-light);
 }
 
-.seating-chart-area img:hover {
-    transform: scale(1.02);
-    box-shadow: var(--shadow-medium);
-}
-
-.seating-chart-area p {
-    font-size: 0.85rem;
-    color: #888;
-    margin-top: 15px;
-}
-
 /* --- Share Photos --- */
-.share-text {
-    text-align: center;
-    margin-bottom: 35px;
-    font-size: 0.95rem;
-    line-height: 2;
-}
-
 .share-buttons {
     display: flex;
     flex-direction: column;
@@ -512,53 +449,6 @@ section {
     border-radius: 50px;
     transition: all var(--transition-normal);
     box-shadow: var(--shadow-light);
-    position: relative;
-    overflow: hidden;
-}
-
-.share-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.share-btn:hover::before,
-.share-btn:focus::before {
-    width: 300px;
-    height: 300px;
-}
-
-.share-btn:hover,
-.share-btn:focus {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
-}
-
-.share-btn:active {
-    transform: translateY(0);
-}
-
-.share-btn span:first-child {
-    font-family: var(--font-en);
-    font-size: 1.3rem;
-    line-height: 1.3;
-    position: relative;
-    z-index: 1;
-}
-
-.share-btn .jp-label {
-    font-size: 0.8rem;
-    opacity: 0.95;
-    margin-top: 4px;
-    position: relative;
-    z-index: 1;
 }
 
 /* --- Footer --- */
@@ -566,13 +456,8 @@ footer {
     text-align: center;
     padding: 60px 20px;
     font-family: var(--font-en);
-    font-size: 0.9rem;
     color: #AAA;
     border-top: 1px solid rgba(197, 180, 163, 0.2);
-}
-
-footer p {
-    margin: 8px 0;
 }
 
 /* --- Modal --- */
@@ -584,21 +469,13 @@ footer p {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.92);
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    animation: fadeIn 0.3s ease;
 }
 
 .modal.is-active {
     display: flex;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .modal-content {
@@ -606,39 +483,7 @@ footer p {
     padding: 30px;
     border-radius: 12px;
     max-width: 90%;
-    max-height: 90%;
     position: relative;
-    overflow-y: auto;
-    box-shadow: var(--shadow-heavy);
-    animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#imgModalContent {
-    background: none;
-    padding: 0;
-    width: auto;
-    height: auto;
-    max-width: 95vw;
-    max-height: 95vh;
-}
-
-#imgModalContent img {
-    max-width: 100%;
-    max-height: 95vh;
-    display: block;
-    object-fit: contain;
-    border-radius: 8px;
 }
 
 .close-btn {
@@ -646,164 +491,41 @@ footer p {
     top: 15px;
     right: 20px;
     font-size: 36px;
-    font-weight: 300;
     color: var(--white);
-    transition: all var(--transition-fast);
     z-index: 210;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    background: rgba(0, 0, 0, 0.8);
-    transform: rotate(90deg);
-}
-
-#menuModal .close-btn {
-    color: var(--text-color);
-    background: transparent;
-}
-
-#menuModal .close-btn:hover,
-#menuModal .close-btn:focus {
-    background: rgba(197, 180, 163, 0.1);
 }
 
 /* --- Menu List --- */
 .menu-list {
     list-style: none;
     padding: 0;
-    margin: 0;
     text-align: center;
-}
-
-.menu-list li {
-    margin: 8px 0;
 }
 
 .menu-list a {
     display: flex;
     flex-direction: column;
     padding: 12px 20px;
-    border-bottom: 1px solid rgba(197, 180, 163, 0.2);
-    transition: all var(--transition-fast);
     font-family: var(--font-en);
     font-size: 1.5rem;
-    font-weight: 600;
-    border-radius: 8px;
-}
-
-.menu-list a:hover,
-.menu-list a:focus {
-    color: var(--accent-color);
-    background: rgba(197, 180, 163, 0.08);
-    border-bottom-color: var(--accent-color);
-}
-
-.menu-list .jp-nav {
-    font-size: 0.85rem;
-    font-weight: 400;
-    opacity: 0.8;
-    margin-top: 4px;
-    font-family: var(--font-jp);
 }
 
 /* --- Responsive Design --- */
 @media (max-width: 480px) {
-    .hero-img {
-        height: 50vh;
+    .hero-img { height: 50vh; }
+
+    /* スマホで画像がボタンの真ん中に来るように高さを調整 */
+    .slideshow-container, 
+    .slideshow-container#slideshowPre {
+        height: 280px; 
     }
 
-    .slideshow-container {
-        height: 280px;
-    }
-
-    .story-item {
-        flex-direction: column !important;
-        gap: 15px;
-    }
-
-    .story-item:nth-child(even) .story-content {
-        text-align: left;
-    }
-
-    .story-img-box {
-        flex: 0 0 auto;
-        width: 100%;
-    }
-
-    .story-img-box img {
-        height: 200px;
-    }
-
-    .profile-img {
-        width: 140px;
-        height: 140px;
-    }
-
-    .prev-arrow,
-    .next-arrow {
-        padding: 10px 12px;
-        font-size: 18px;
-    }
-
-    section {
-        padding: 60px 0;
-    }
+    .story-item { flex-direction: column !important; }
+    .story-img-box img { height: 200px; }
+    section { padding: 60px 0; }
 }
 
 @media (min-width: 768px) {
-    .container {
-        padding: 0 40px;
-    }
-
-    .hero-img {
-        max-width: 500px;
-    }
-
-    .slideshow-container {
-        height: 400px;
-    }
-
-    section {
-        padding: 100px 0;
-    }
-}
-
-/* --- Print Styles --- */
-@media print {
-    .menu-btn,
-    .modal,
-    .prev-arrow,
-    .next-arrow,
-    .dots-container,
-    .loading-overlay {
-        display: none !important;
-    }
-
-    .fade-in {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    section {
-        page-break-inside: avoid;
-    }
-}
-
-/* --- Prefers Reduced Motion --- */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
+    .slideshow-container { height: 400px; }
+    section { padding: 100px 0; }
 }
