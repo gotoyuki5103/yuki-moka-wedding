@@ -135,15 +135,9 @@ a {
     -webkit-tap-highlight-color: transparent;
 }
 
-.menu-btn:hover,
-.menu-btn:focus {
+.menu-btn:hover {
     background: var(--white);
-    box-shadow: var(--shadow-medium);
     transform: scale(1.05);
-}
-
-.menu-btn:active {
-    transform: scale(0.95);
 }
 
 .menu-btn span {
@@ -170,7 +164,6 @@ a {
     object-fit: cover;
     border-radius: 12px;
     margin-bottom: 2rem;
-    filter: brightness(0.97);
     box-shadow: var(--shadow-medium);
 }
 
@@ -282,15 +275,8 @@ section {
 
 .story-img-box img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
     border-radius: 8px;
     box-shadow: var(--shadow-light);
-    transition: transform var(--transition-normal);
-}
-
-.story-img-box img:hover {
-    transform: scale(1.03);
 }
 
 .story-content {
@@ -309,114 +295,77 @@ section {
     text-align: right;
 }
 
-/* ================================== */
-/* Slideshow / Gallery                */
-/* ================================== */
-
-.slideshow-container, 
-.slideshow-container#slideshowPre { 
-    max-width: 560px; 
-    position: relative; 
-    margin: auto; 
-    height: 350px; /* PC・タブレット用の固定高さ */
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    background-color: transparent;
-    overflow: visible; /* 影やボタンが切れないように */
-}
-
-/* 重要：JSで block になっても中央揃えを維持 */
-.mySlides, .mySlidesPre { 
-    display: none; 
-    width: 100%; 
-    height: 100%; 
-    /* 中身の画像を上下左右中央に配置 */
-    flex-direction: column;
-    align-items: center; 
+/* --- Slideshow --- */
+.slideshow-container {
+    max-width: 560px;
+    position: relative;
+    margin: auto;
+    height: 350px;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-/* JSの display: block 命令を強制的に flex として扱う */
+.mySlides, .mySlidesPre {
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .mySlides[style*="display: block"],
 .mySlidesPre[style*="display: block"] {
     display: flex !important;
 }
 
-.mySlides img, .mySlidesPre img { 
-    max-width: 100%; 
-    max-height: 100%; 
-    width: auto; 
-    height: auto; 
-    object-fit: contain; 
-    border-radius: 8px; 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
-    margin: 0 auto; /* 左右中央寄せの担保 */
+.mySlides img, .mySlidesPre img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: var(--shadow-medium);
 }
 
-/* フェードアニメーション */
-.fade-slide { 
-    animation: fade 1.5s; 
-}
-@keyframes fade { from {opacity: .4} to {opacity: 1} }
-
-/* 矢印ボタン (Glassmorphism) */
 .prev-arrow, .next-arrow {
     cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #fff;
-    font-size: 18px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
     z-index: 10;
-    padding: 0;
 }
 
-.prev-arrow { left: 15px; }
-.next-arrow { right: 15px; }
+.prev-arrow { left: 10px; }
+.next-arrow { right: 10px; }
 
-.prev-arrow:hover, .next-arrow:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-50%) scale(1.05);
-}
-
-/* ドットナビゲーション */
-.dots-container { 
-    text-align: center; 
-    margin-top: 25px; 
+.dots-container {
+    text-align: center;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 8px;
 }
 
-.dot, .dotPre { 
-    cursor: pointer; 
-    height: 6px; 
-    width: 6px; 
+.dot, .dotPre {
+    width: 6px;
+    height: 6px;
     background-color: #ddd;
-    border-radius: 100px;
-    display: inline-block; 
-    transition: all 0.4s ease;
-    border: none;
-    padding: 0;
+    border-radius: 50%;
+    transition: all 0.3s;
 }
 
-.active-dot, .dotPre.active-dot { 
+.active-dot {
     background-color: var(--accent-color);
-    width: 24px;
+    width: 20px;
+    border-radius: 10px;
 }
 
 /* --- Seating Chart --- */
@@ -427,41 +376,32 @@ section {
 .seating-chart-area img {
     width: 100%;
     max-width: 500px;
-    margin: 0 auto 15px;
+    margin-bottom: 15px;
     border: 2px solid var(--accent-color);
     border-radius: 12px;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    box-shadow: var(--shadow-light);
-}
-
-.seating-chart-area img:hover {
-    transform: scale(1.02);
 }
 
 /* --- Share Photos --- */
 .share-buttons {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
-    max-width: 320px;
-    margin: 0 auto;
 }
 
 .share-btn {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 18px 20px;
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+    max-width: 300px;
+    padding: 15px;
+    background: var(--accent-color);
     color: var(--white);
     border-radius: 50px;
-    transition: all var(--transition-normal);
-    box-shadow: var(--shadow-light);
 }
+
+.jp-label { font-size: 0.75rem; margin-top: 2px; opacity: 0.9; }
 
 /* --- Footer --- */
 footer {
@@ -469,10 +409,9 @@ footer {
     padding: 60px 20px;
     font-family: var(--font-en);
     color: #AAA;
-    border-top: 1px solid rgba(197, 180, 163, 0.2);
 }
 
-/* --- Modal --- */
+/* --- Modal Base --- */
 .modal {
     display: none;
     position: fixed;
@@ -490,62 +429,87 @@ footer {
     display: flex;
 }
 
+/* --- Menu Modal Content (Updated) --- */
 .modal-content {
     background-color: var(--bg-color);
-    padding: 30px;
+    padding: 40px 20px;
     border-radius: 12px;
-    max-width: 90%;
+    width: 85%;
+    max-width: 400px;
+    max-height: 85vh; /* 画面内にはみ出さないよう制限 */
     position: relative;
+    overflow-y: auto; /* はみ出る場合はスクロール */
+    -webkit-overflow-scrolling: touch;
 }
 
-.close-btn {
+.modal-content .close-btn {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 36px;
-    color: var(--white);
-    z-index: 210;
+    top: 10px;
+    right: 15px;
+    font-size: 32px;
+    color: var(--text-color);
 }
 
-/* --- Menu List --- */
+/* --- Menu List (Updated) --- */
 .menu-list {
     list-style: none;
     padding: 0;
+    margin: 0;
     text-align: center;
+}
+
+.menu-list li {
+    border-bottom: 1px solid rgba(197, 180, 163, 0.15);
+}
+
+.menu-list li:last-child {
+    border-bottom: none;
 }
 
 .menu-list a {
     display: flex;
     flex-direction: column;
-    padding: 12px 20px;
+    padding: 12px 0;
     font-family: var(--font-en);
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* サイズを少し小さく調整 */
+    color: var(--text-color);
+    transition: background-color 0.2s;
+}
+
+.menu-list a .jp-nav {
+    font-size: 0.7rem;
+    color: #999;
+    margin-top: 2px;
+}
+
+/* --- Image Modal (Gallery Enlargement) --- */
+#imgModal .modal-content {
+    background: transparent;
+    padding: 0;
+    max-width: 95%;
+    max-height: 95vh;
+}
+
+#imgModal .close-btn {
+    color: #fff;
+}
+
+.modal-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* --- Responsive Design --- */
 @media (max-width: 480px) {
     .hero-img { height: 50vh; }
-
-    /* スマホで画像がボタンの真ん中に来るように高さを固定 */
-    .slideshow-container, 
-    .slideshow-container#slideshowPre {
-        height: 280px; 
-    }
-
-    .story-item { flex-direction: column !important; }
-    .story-img-box img { height: 200px; }
+    .slideshow-container { height: 280px; }
+    .story-item { flex-direction: column !important; text-align: center !important; }
+    .story-img-box { flex: 0 0 100%; }
+    .story-content { text-align: center !important; }
     section { padding: 60px 0; }
 }
 
 @media (min-width: 768px) {
     .slideshow-container { height: 400px; }
-    section { padding: 100px 0; }
-}
-
-/* --- Print Styles --- */
-@media print {
-    .menu-btn, .modal, .prev-arrow, .next-arrow, .dots-container, .loading-overlay {
-        display: none !important;
-    }
-    .fade-in { opacity: 1 !important; transform: none !important; }
 }
