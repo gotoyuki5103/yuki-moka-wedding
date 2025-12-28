@@ -1,24 +1,21 @@
 /* ================================== */
-/* Wedding Profile Book - Full CSS    */
+/* Wedding Profile Book - Integrated CSS */
 /* ================================== */
 
-/* --- CSS Variables --- */
 :root {
     --bg-color: #FDFCF8;
     --text-color: #4A4A4A;
     --accent-color: #C5B4A3;
     --accent-hover: #B5A493;
     --white: #FFFFFF;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.08);
     --font-en: 'Cormorant Garamond', serif;
     --font-jp: 'Shippori Mincho', serif;
 }
 
 /* --- Base Styles --- */
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     background-color: var(--bg-color);
@@ -31,79 +28,13 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
-    font-family: var(--font-en);
-    font-weight: 400;
-    margin: 0;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-button {
-    cursor: pointer;
-    border: none;
-    background: none;
-    font-family: inherit;
-    outline: none;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
+h1, h2, h3, h4 { font-family: var(--font-en); font-weight: 400; margin: 0; }
+img { max-width: 100%; height: auto; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; outline: none; }
+a { color: inherit; text-decoration: none; }
 
 /* --- Accessibility --- */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-/* --- Loading Overlay --- */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.3s ease;
-}
-
-.loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(197, 180, 163, 0.2);
-    border-top-color: var(--accent-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* --- Container --- */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
 /* --- Menu Button --- */
 .menu-btn {
@@ -111,15 +42,15 @@ a {
     top: 20px;
     right: 20px;
     z-index: 100;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-light);
-    -webkit-tap-highlight-color: transparent;
 }
 
 /* --- Hero Section --- */
@@ -129,7 +60,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 60px 20px 40px;
+    padding: 60px 20px;
 }
 
 .hero-img {
@@ -138,250 +69,175 @@ a {
     height: 60vh;
     max-height: 500px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 2px;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-medium);
 }
 
-.hero-title {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    font-style: italic;
-    text-align: center;
-}
+.hero-title { font-size: clamp(2.2rem, 6vw, 3rem); font-style: italic; margin-bottom: 0.5rem; }
+.hero-date { font-family: var(--font-en); color: #888; font-size: 0.9rem; }
 
-.hero-date {
-    font-size: 1rem;
-    color: #888;
-    text-align: center;
-    font-family: var(--font-en);
-}
-
-/* --- Fade In Animation --- */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 1s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* --- Fade In --- */
+.fade-in { opacity: 0; transform: translateY(20px); transition: 1.2s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 
 /* --- Section Styles --- */
-section {
-    padding: 80px 0;
-}
-
-.section-title {
-    font-size: clamp(1.8rem, 4vw, 2.2rem);
-    margin-bottom: 40px;
-    text-align: center;
-    letter-spacing: 0.15em;
-}
+section { padding: 100px 0; }
+.section-title { font-size: 2rem; margin-bottom: 50px; text-align: center; letter-spacing: 0.2em; text-transform: uppercase; }
 
 /* --- Profile --- */
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 60px;
-    text-align: center;
-}
-
-.profile-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 1px solid var(--accent-color);
-    padding: 4px;
-}
+.profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 80px; text-align: center; }
+.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 1px solid var(--accent-color); padding: 5px; }
+.profile-name { font-size: 1.5rem; margin-bottom: 10px; }
+.profile-desc { font-size: 0.9rem; max-width: 400px; color: #666; }
 
 /* --- Story --- */
-.story-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-    gap: 20px;
-}
-
+.story-item { display: flex; align-items: center; margin-bottom: 50px; gap: 30px; }
 .story-item:nth-child(even) { flex-direction: row-reverse; }
+.story-img-box { flex: 0 0 45%; }
+.story-img-box img { border-radius: 2px; box-shadow: var(--shadow-light); }
+.story-content { flex: 1; }
+.story-content h4 { font-size: 1rem; color: var(--accent-color); margin-bottom: 8px; }
+.story-content p { font-size: 0.85rem; line-height: 1.8; }
 
-.story-img-box { flex: 0 0 40%; }
-.story-img-box img { border-radius: 4px; }
-.story-content { flex: 1; font-size: 0.85rem; }
-.story-content h4 { font-size: 1rem; margin-bottom: 5px; color: var(--accent-color); }
-
-/* --- Slideshow (NO-FLEX & FIXED HEIGHT) --- */
+/* --- Slideshow (Strictly Fixed & Absolute Overlay) --- */
 .slideshow-container {
     width: 100%;
     position: relative;
     margin: auto;
-    /* 高さを厳格に固定 */
-    height: 500px; 
-    overflow: hidden;
+    height: 550px; /* PC・タブレット用固定高さ */
     background-color: transparent;
+    overflow: hidden;
 }
 
-/* スライドの表示切り替えで高さがブレないよう absolute で重ねる */
 .mySlides, .mySlidesPre {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: none; /* JSで display: flex に上書きされる */
+    display: none;
     align-items: center;
     justify-content: center;
-}
-
-.mySlides[style*="display: block"],
-.mySlidesPre[style*="display: block"] {
-    display: flex !important;
 }
 
 .mySlides img, .mySlidesPre img {
-    max-width: 90%; /* 左右に少し余白 */
+    max-width: 85%;
     max-height: 100%;
-    width: auto;
-    height: auto;
     object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-radius: 2px;
+    box-shadow: var(--shadow-medium);
 }
 
-/* --- Stylish Nav Buttons --- */
+/* --- Stylish Nav Buttons (Fixing double arrow issue) --- */
 .prev-arrow, .next-arrow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    height: 100%;
+    width: 60px;
     z-index: 10;
-    width: 50px;
-    height: 100%; /* クリックエリアを縦いっぱいに広げて操作性向上 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s;
-    opacity: 0.6;
+    color: transparent; /* HTMLのテキスト矢印を消す */
+    font-size: 0;
 }
 
-.prev-arrow:hover, .next-arrow:hover { opacity: 1; }
-
-/* 矢印を細いラインデザインに変更 */
-.prev-arrow::before, .next-arrow::before {
+.prev-arrow::after, .next-arrow::after {
     content: '';
-    width: 12px;
-    height: 12px;
+    position: absolute;
+    top: 50%;
+    width: 15px;
+    height: 15px;
     border-top: 1px solid var(--text-color);
     border-left: 1px solid var(--text-color);
-    display: block;
+    transition: 0.3s;
 }
 
-.prev-arrow::before { transform: rotate(-45deg); margin-left: 10px; }
-.next-arrow::before { transform: rotate(135deg); margin-right: 10px; }
+.prev-arrow::after { transform: translateY(-50%) rotate(-45deg); left: 20px; }
+.next-arrow::after { transform: translateY(-50%) rotate(135deg); right: 20px; }
 
-.prev-arrow { left: 0; }
-.next-arrow { right: 0; }
-
-.dots-container {
-    text-align: center;
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-}
-
-.dot, .dotPre {
-    width: 4px;
-    height: 4px;
-    background-color: #D1D1D1;
-    border-radius: 50%;
-    transition: transform 0.3s, background-color 0.3s;
-}
-
-.active-dot {
-    background-color: var(--accent-color);
-    transform: scale(1.5);
-}
+.dots-container { margin-top: 20px; display: flex; justify-content: center; gap: 12px; }
+.dot, .dotPre { width: 5px; height: 5px; background-color: #ddd; border-radius: 50%; transition: 0.3s; }
+.active-dot { background-color: var(--accent-color); transform: scale(1.6); }
 
 /* --- Seating Chart --- */
-.seating-chart-area { text-align: center; }
-.seating-chart-area img {
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid #eee;
-}
+.seating-chart-area img { width: 100%; border: 1px solid #eee; margin-bottom: 15px; }
 
 /* --- Share Photos --- */
-.share-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-}
-
+.share-buttons { display: flex; flex-direction: column; gap: 15px; align-items: center; }
 .share-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
     max-width: 280px;
-    padding: 18px;
+    padding: 20px;
     border: 1px solid var(--accent-color);
     color: var(--accent-color);
-    border-radius: 2px;
-    transition: all 0.3s;
+    text-align: center;
+    transition: 0.3s;
+    letter-spacing: 0.1em;
 }
-
-.share-btn:hover {
-    background: var(--accent-color);
-    color: #fff;
-}
+.share-btn:hover { background: var(--accent-color); color: white; }
 
 /* --- Footer --- */
-footer {
-    text-align: center;
-    padding: 80px 20px;
-    font-family: var(--font-en);
-    font-size: 0.9rem;
-    color: #999;
-}
+footer { text-align: center; padding: 100px 20px; color: #bbb; font-family: var(--font-en); font-size: 0.8rem; letter-spacing: 0.2em; }
 
-/* --- Modal --- */
+/* --- Modals --- */
 .modal {
     display: none;
     position: fixed;
     z-index: 200;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.98);
+    inset: 0;
+    background-color: rgba(253, 252, 248, 0.98); /* 背景と合わせた清潔感ある白 */
     align-items: center;
     justify-content: center;
 }
 
 .modal.is-active { display: flex; }
 
-.modal-content {
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
+/* Image Modal Specific (Dark theme for focus) */
+#imgModal { background-color: rgba(0, 0, 0, 0.95); }
+
+/* Close Button (Universal Visibility) */
+.close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 210;
 }
 
-.menu-list { list-style: none; padding: 0; }
+#imgModal .close-btn { color: #fff; } /* 席次表拡大時は白 */
+
+/* --- Menu List Design --- */
+.menu-list { list-style: none; padding: 0; text-align: center; }
+.menu-list li { margin: 25px 0; }
 .menu-list a {
-    display: block;
-    padding: 15px;
-    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-en);
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
 }
+.menu-list .jp-nav { font-family: var(--font-jp); font-size: 0.65rem; color: #999; margin-top: 5px; letter-spacing: 0.05em; }
 
 /* --- Responsive --- */
 @media (max-width: 480px) {
-    section { padding: 60px 0; }
-    .slideshow-container { height: 400px; } /* スマホでは高さを少し抑える */
-    .hero-img { height: 45vh; }
+    section { padding: 70px 0; }
+    .slideshow-container { height: 420px; } /* スマホでの最適な固定高さ */
+    .story-item { flex-direction: column; gap: 15px; text-align: center; }
+    .story-img-box { flex: 0 0 100%; }
+    .hero-img { height: 50vh; }
+    .close-btn { top: 20px; right: 20px; }
 }
+
+@media (min-width: 768px) {
+    .mySlides img, .mySlidesPre img { max-height: 500px; }
+}
+
+/* Loading Overlay */
+.loading-overlay { position: fixed; inset: 0; background: var(--bg-color); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; }
+.loading-spinner { width: 30px; height: 30px; border: 2px solid #eee; border-top-color: var(--accent-color); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
