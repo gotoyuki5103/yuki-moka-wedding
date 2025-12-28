@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Yuki & Mokaの結婚式プロフィールブック。2026年4月11日、ホテル椿山荘東京にて。">
+    <meta name="description" content="Yuki & Mokaの結婚式プロフィールブック。それぞれの歩みから二人の物語まで。">
     <meta property="og:title" content="Wedding Profile Book | Yuki & Moka">
     <meta property="og:description" content="Yuki & Mokaの結婚式プロフィールブック">
     <meta property="og:type" content="website">
@@ -13,28 +13,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- メニューボタン -->
     <button class="menu-btn" id="openMenuModal" aria-label="メニューを開く">
         <span aria-hidden="true">&equiv;</span>
     </button>
 
-    <!-- ローディング表示 -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
         <p>Loading...</p>
     </div>
 
-    <!-- ヒーローセクション -->
     <header class="hero container fade-in" id="top">
         <img src="images/hero.jpg" alt="結婚式のカップル写真" class="hero-img" loading="eager">
         <h1 class="hero-title">Yuki & Moka</h1>
         <p class="hero-date">2026.04.11 | Hotel Chinzanso Tokyo</p>
     </header>
 
-    <!-- ご挨拶 -->
     <section class="container fade-in" id="greeting">
         <h2 class="section-title">Greeting</h2>
         <div class="greeting-text">
@@ -45,94 +41,122 @@
         </div>
     </section>
 
-    <!-- プロフィール -->
     <section class="container fade-in" id="profile">
         <h2 class="section-title">Profile</h2>
-        
         <div class="profile-card">
-            <img src="images/profile/yuki.jpg" alt="新郎 Yuki Gotoのプロフィール写真" class="profile-img" loading="lazy">
+            <img src="images/profile/yuki.jpg" alt="Yuki Goto" class="profile-img" loading="lazy">
             <h3 class="profile-name">Yuki Goto</h3>
             <p class="profile-desc">
                 1998年生まれ、岡山県出身。<br>
-                趣味は温泉に入ったり、ゆっくりすること。<br>
-                休日はお家でだらだらと過ごしています。<br>
-                一言：今日は最高の1日にしましょう！
+                趣味は温泉巡り。休日は愛車で遠出すること。<br>
+                MBTI：ISFP（冒険家）| 一言：最高の1日にしましょう！
             </p>
         </div>
-
         <div class="profile-card">
-            <img src="images/profile/moka.jpg" alt="新婦 Moka Ishiiのプロフィール写真" class="profile-img" loading="lazy">
+            <img src="images/profile/moka.jpg" alt="Moka Ishii" class="profile-img" loading="lazy">
             <h3 class="profile-name">Moka Ishii</h3>
             <p class="profile-desc">
                 1999年生まれ、東京都出身。<br>
-                趣味はライブに行くこと。<br>
-                のんびりしているように見えて、黒帯を持っています。<br>
-                一言：たくさん写真を撮ってくださいね♪
+                趣味はライブとカフェ巡り。実は合気道黒帯。<br>
+                MBTI：ENFJ（主人公）| 一言：たくさん写真を撮ってね♪
             </p>
         </div>
     </section>
-    
-    <!-- 二人の物語 -->
+
+    <section class="container fade-in" id="biography">
+        <h2 class="section-title">Biography</h2>
+        
+        <div class="bio-tabs">
+            <button class="tab-btn active" data-target="yuki-bio">Yuki's Path</button>
+            <button class="tab-btn" data-target="moka-bio">Moka's Path</button>
+        </div>
+
+        <div id="yuki-bio" class="bio-content active">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-info">
+                        <span class="timeline-year">1998</span>
+                        <h4 class="timeline-title">Born in Okayama</h4>
+                        <p>岡山県の豊かな自然の中で誕生。「優しく、誠実な子に」と名付けられる。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-info">
+                        <span class="timeline-year">2005</span>
+                        <h4 class="timeline-title">Little Baseball Player</h4>
+                        <p>地元の野球チームに入団。ポジションはショート。泥だらけになって白球を追う日々。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-info">
+                        <span class="timeline-year">2017</span>
+                        <h4 class="timeline-title">Moving to Tokyo</h4>
+                        <p>大学進学を機に上京。デザインの面白さに目覚め、学業の傍ら日本中の温泉を巡る。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="moka-bio" class="bio-content">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-info">
+                        <span class="timeline-year">1999</span>
+                        <h4 class="timeline-title">Born in Tokyo</h4>
+                        <p>東京の賑やかな街で誕生。赤ちゃんの頃から音楽が流れると踊りだす活発な子。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-info">
+                        <span class="timeline-year">2006</span>
+                        <h4 class="timeline-title">The Way of Aikido</h4>
+                        <p>祖父の影響で合気道を始める。のんびりした性格だが、畳の上では真剣そのもの。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-info">
+                        <span class="timeline-year">2018</span>
+                        <h4 class="timeline-title">Music and Café Culture</h4>
+                        <p>大学時代、軽音楽部でベースを担当。趣味のカフェ巡りもこの頃から本格化。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="container fade-in" id="story">
         <h2 class="section-title">Our Story</h2>
-
         <div class="story-item">
-            <div class="story-img-box">
-                <img src="images/story/01.jpg" alt="付き合った日 チームラボ" loading="lazy">
-            </div>
+            <div class="story-img-box"><img src="images/story/01.jpg" alt="邂逅" loading="lazy"></div>
             <div class="story-content">
-                <h4>2023.03.17 | The Day We Started Dating</h4>
-                <p>二人でチームラボと月島へお出かけ。<br>
-この日、私たちは付き合い始めました。</p>
+                <h4>2023.03.17 | The Day We Met</h4>
+                <p>チームラボでの出会い。共通の趣味である「体験型アート」が二人を繋ぎました。</p>
             </div>
         </div>
-
         <div class="story-item">
-            <div class="story-img-box">
-                <img src="images/story/02.jpg" alt="プロポーズ 思い出" loading="lazy">
-            </div>
+            <div class="story-img-box"><img src="images/story/02.jpg" alt="プロポーズ" loading="lazy"></div>
             <div class="story-content">
                 <h4>2024.12.25 | Proposal</h4>
-                <p>新居への入居日杏芽ちゃんにプロポーズしました。<br>
-緊張しすぎて何を言ったか覚えていませんが、喜んでくれた姿を今でも覚えています。</p>
-            </div>
-        </div>
-
-        <div class="story-item">
-            <div class="story-img-box">
-                <img src="images/story/03.jpg" alt="入籍日 思い出" loading="lazy">
-            </div>
-            <div class="story-content">
-                <h4>2024.12.25 | We Got Married</h4>
-                <p>2024年のクリスマスに婚姻届を提出し、二人の結婚生活がスタートしました。<br>
-これからもたくさん笑い合って過ごしたいです。</p>
+                <p>新居でのプロポーズ。サプライズに不慣れな幸喜でしたが、誠実な想いを伝えました。</p>
             </div>
         </div>
     </section>
 
-    <!-- 前撮り写真 -->
     <section class="container fade-in" id="preshoot">
         <h2 class="section-title">Pre-shoot</h2>
-        
-        <div class="slideshow-container" id="slideshowPre" role="region" aria-label="前撮り写真スライドショー">
-            <button class="prev-arrow" onclick="plusSlidesPre(-1)" aria-label="前の写真">&#10094;</button>
-            <button class="next-arrow" onclick="plusSlidesPre(1)" aria-label="次の写真">&#10095;</button>
+        <div class="slideshow-container" id="slideshowPre">
+            <button class="prev-arrow" onclick="plusSlidesPre(-1)">&#10094;</button>
+            <button class="next-arrow" onclick="plusSlidesPre(1)">&#10095;</button>
         </div>
-        <div class="dots-container" id="dotsPreshoot" role="tablist" aria-label="写真ナビゲーション"></div>
+        <div class="dots-container" id="dotsPreshoot"></div>
     </section>
 
-    <!-- 思い出の写真 -->
-    <section class="container fade-in" id="memories">
-        <h2 class="section-title">Memories</h2>
-        
-        <div class="slideshow-container" id="slideshow" role="region" aria-label="思い出の写真スライドショー">
-            <button class="prev-arrow" onclick="plusSlides(-1)" aria-label="前の写真">&#10094;</button>
-            <button class="next-arrow" onclick="plusSlides(1)" aria-label="次の写真">&#10095;</button>
-        </div>
-        <div class="dots-container" id="dotsMemories" role="tablist" aria-label="写真ナビゲーション"></div>
-    </section>
-
-    <!-- 席次表 -->
     <section class="container fade-in" id="seating-chart">
         <h2 class="section-title">Seating Chart</h2>
         <div class="seating-chart-area">
@@ -140,51 +164,30 @@
             <p>※画像をタップすると拡大表示されます。</p>
         </div>
     </section>
-    
-    <!-- 写真共有 -->
+
     <section class="container fade-in" id="share-photos">
         <h2 class="section-title">Share Photos</h2>
-        <div class="share-text">
-            <p>本日の思い出の写真を<br>ぜひこちらからシェアしてください。<br>グループごとにアルバムを用意しました。</p>
-        </div>
-        
         <div class="share-buttons">
-            <a href="https://photos.app.goo.gl/xxxxxxxxxxxx" target="_blank" rel="noopener noreferrer" class="share-btn">
-                <span>For Friends</span>
-                <span class="jp-label">友人・同僚の方はこちら</span>
-            </a>
-
-            <a href="https://photos.app.goo.gl/yyyyyyyyyyyy" target="_blank" rel="noopener noreferrer" class="share-btn">
-                <span>For Family</span>
-                <span class="jp-label">親族の方はこちら</span>
-            </a>
-
-            <a href="https://photos.app.goo.gl/zzzzzzzzzzzz" target="_blank" rel="noopener noreferrer" class="share-btn">
-                <span>All Guests</span>
-                <span class="jp-label">その他の方はこちら</span>
-            </a>
+            <a href="#" class="share-btn"><span>For Friends</span><span class="jp-label">友人はこちら</span></a>
+            <a href="#" class="share-btn"><span>For Family</span><span class="jp-label">親族はこちら</span></a>
         </div>
     </section>
 
-    <!-- フッター -->
     <footer>
         <p>Thank you for coming today.</p>
         <p>Yuki & Moka</p>
     </footer>
 
-    <!-- メニューモーダル -->
-    <div id="menuModal" class="modal" role="dialog" aria-labelledby="menuTitle" aria-modal="true">
+    <div id="menuModal" class="modal" role="dialog" aria-modal="true">
         <div class="modal-content">
-            <button class="close-btn" aria-label="メニューを閉じる">&times;</button>
-            <h2 id="menuTitle" class="sr-only">メニュー</h2>
+            <button class="close-btn">&times;</button>
             <nav>
                 <ul class="menu-list">
                     <li><a href="#top">TOP<span class="jp-nav">トップ</span></a></li>
-                    <li><a href="#greeting">GREETING<span class="jp-nav">ごあいさつ</span></a></li>
+                    <li><a href="#greeting">GREETING<span class="jp-nav">ご挨拶</span></a></li>
                     <li><a href="#profile">PROFILE<span class="jp-nav">プロフィール</span></a></li>
+                    <li><a href="#biography">BIOGRAPHY<span class="jp-nav">生い立ち</span></a></li>
                     <li><a href="#story">OUR STORY<span class="jp-nav">二人の物語</span></a></li>
-                    <li><a href="#preshoot">PRE-SHOOT<span class="jp-nav">前撮り</span></a></li>
-                    <li><a href="#memories">MEMORIES<span class="jp-nav">思い出の写真</span></a></li>
                     <li><a href="#seating-chart">SEATING CHART<span class="jp-nav">席次表</span></a></li>
                     <li><a href="#share-photos">SHARE PHOTOS<span class="jp-nav">写真の共有</span></a></li>
                 </ul>
@@ -192,12 +195,9 @@
         </div>
     </div>
 
-    <!-- 画像拡大モーダル -->
-    <div id="imgModal" class="modal" role="dialog" aria-label="画像拡大表示" aria-modal="true">
-        <button class="close-btn" aria-label="閉じる">&times;</button>
-        <div class="modal-content" id="imgModalContent">
-            <img class="modal-img" id="expandedImg" alt="拡大画像">
-        </div>
+    <div id="imgModal" class="modal">
+        <button class="close-btn">&times;</button>
+        <div class="modal-content"><img class="modal-img" id="expandedImg"></div>
     </div>
 </body>
 </html>
