@@ -295,12 +295,13 @@ section {
     text-align: right;
 }
 
-/* --- Slideshow --- */
+/* --- Slideshow (Modified for Vertical Photos) --- */
 .slideshow-container {
-    max-width: 560px;
+    max-width: 100%;
     position: relative;
     margin: auto;
-    height: 350px;
+    /* 高さを固定せず、内容（写真）に合わせる */
+    min-height: 300px; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -309,7 +310,8 @@ section {
 .mySlides, .mySlidesPre {
     display: none;
     width: 100%;
-    height: 100%;
+    /* 写真の高さに合わせる */
+    height: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -321,30 +323,37 @@ section {
 }
 
 .mySlides img, .mySlidesPre img {
+    width: auto;
+    height: auto;
     max-width: 100%;
-    max-height: 100%;
+    /* 縦長写真が画面からはみ出ないように、画面高の70%を上限にする */
+    max-height: 70vh; 
     border-radius: 8px;
     box-shadow: var(--shadow-medium);
+    object-fit: contain;
 }
 
+/* 矢印ボタンの背景を少し濃くして視認性を確保 */
 .prev-arrow, .next-arrow {
     cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.4);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    font-size: 18px;
+    color: var(--text-color);
 }
 
-.prev-arrow { left: 10px; }
-.next-arrow { right: 10px; }
+.prev-arrow { left: 5px; }
+.next-arrow { right: 5px; }
 
 .dots-container {
     text-align: center;
@@ -429,16 +438,16 @@ footer {
     display: flex;
 }
 
-/* --- Menu Modal Content (Updated) --- */
+/* --- Menu Modal Content --- */
 .modal-content {
     background-color: var(--bg-color);
     padding: 40px 20px;
     border-radius: 12px;
     width: 85%;
     max-width: 400px;
-    max-height: 85vh; /* 画面内にはみ出さないよう制限 */
+    max-height: 85vh;
     position: relative;
-    overflow-y: auto; /* はみ出る場合はスクロール */
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -450,7 +459,7 @@ footer {
     color: var(--text-color);
 }
 
-/* --- Menu List (Updated) --- */
+/* --- Menu List --- */
 .menu-list {
     list-style: none;
     padding: 0;
@@ -471,7 +480,7 @@ footer {
     flex-direction: column;
     padding: 12px 0;
     font-family: var(--font-en);
-    font-size: 1.2rem; /* サイズを少し小さく調整 */
+    font-size: 1.2rem;
     color: var(--text-color);
     transition: background-color 0.2s;
 }
@@ -503,13 +512,16 @@ footer {
 /* --- Responsive Design --- */
 @media (max-width: 480px) {
     .hero-img { height: 50vh; }
-    .slideshow-container { height: 280px; }
     .story-item { flex-direction: column !important; text-align: center !important; }
     .story-img-box { flex: 0 0 100%; }
     .story-content { text-align: center !important; }
     section { padding: 60px 0; }
+    /* スマホでは矢印を少し小さく、より端に寄せる */
+    .prev-arrow, .next-arrow { width: 36px; height: 36px; }
 }
 
 @media (min-width: 768px) {
-    .slideshow-container { height: 400px; }
+    .mySlides img, .mySlidesPre img {
+        max-height: 600px; /* PCなど大きな画面では大きくなりすぎないよう制限 */
+    }
 }
