@@ -295,23 +295,25 @@ section {
     text-align: right;
 }
 
-/* --- Slideshow (Modified for Vertical Photos) --- */
+/* --- Slideshow (High Fixed Height Strategy) --- */
 .slideshow-container {
-    max-width: 100%;
+    width: 100%;
+    max-width: 500px;
     position: relative;
     margin: auto;
-    /* 高さを固定せず、内容（写真）に合わせる */
-    min-height: 300px; 
+    /* 縦長写真(3:4など)が余裕を持って収まる高さを固定 */
+    height: 550px; 
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0,0,0,0.02); /* 空白部分が寂しくないよう極薄の背景 */
+    border-radius: 12px;
 }
 
 .mySlides, .mySlidesPre {
     display: none;
     width: 100%;
-    /* 写真の高さに合わせる */
-    height: auto;
+    height: 100%; /* コンテナいっぱいに広げる */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -323,37 +325,36 @@ section {
 }
 
 .mySlides img, .mySlidesPre img {
+    max-width: 100%;
+    max-height: 100%;
     width: auto;
     height: auto;
-    max-width: 100%;
-    /* 縦長写真が画面からはみ出ないように、画面高の70%を上限にする */
-    max-height: 70vh; 
+    object-fit: contain; /* アスペクト比を維持して収める */
     border-radius: 8px;
     box-shadow: var(--shadow-medium);
-    object-fit: contain;
 }
 
-/* 矢印ボタンの背景を少し濃くして視認性を確保 */
 .prev-arrow, .next-arrow {
     cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.6);
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(4px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--text-color);
+    box-shadow: var(--shadow-light);
 }
 
-.prev-arrow { left: 5px; }
-.next-arrow { right: 5px; }
+.prev-arrow { left: -10px; } /* コンテナの外側に少し出すとお洒落 */
+.next-arrow { right: -10px; }
 
 .dots-container {
     text-align: center;
@@ -512,16 +513,18 @@ footer {
 /* --- Responsive Design --- */
 @media (max-width: 480px) {
     .hero-img { height: 50vh; }
+    /* スマホでは画面の高さに合わせてコンテナの高さを調整（縦に長すぎないよう） */
+    .slideshow-container { height: 450px; }
     .story-item { flex-direction: column !important; text-align: center !important; }
     .story-img-box { flex: 0 0 100%; }
     .story-content { text-align: center !important; }
     section { padding: 60px 0; }
-    /* スマホでは矢印を少し小さく、より端に寄せる */
-    .prev-arrow, .next-arrow { width: 36px; height: 36px; }
+    /* 矢印を少し内側に入れる */
+    .prev-arrow { left: 5px; }
+    .next-arrow { right: 5px; }
 }
 
 @media (min-width: 768px) {
-    .mySlides img, .mySlidesPre img {
-        max-height: 600px; /* PCなど大きな画面では大きくなりすぎないよう制限 */
-    }
+    /* PCなど広い画面ではコンテナを少し大きく */
+    .slideshow-container { height: 600px; }
 }
