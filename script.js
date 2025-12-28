@@ -12,7 +12,7 @@ const CONFIG = {
 };
 
 // =====================================
-// 画像の自動検出（最適化版）
+// 画像の自動検出
 // =====================================
 async function detectImageCount(folderPath, maxCount = CONFIG.maxDetectCount) {
     const results = await Promise.all(
@@ -53,11 +53,18 @@ class Slider {
 
         if (!container || !dotsContainer || this.count === 0) return;
 
+        // --- ズレ防止の修正：既存の要素をクリア ---
+        const oldSlides = container.querySelectorAll(`.${this.slideClass}`);
+        oldSlides.forEach(s => s.remove());
+        dotsContainer.innerHTML = '';
+
         // スライド生成
-        const fragment = document.createDocumentFragment();
+        const slideFragment = document.createDocumentFragment();
         for (let i = 1; i <= this.count; i++) {
             const slide = document.createElement('div');
             slide.className = `${this.slideClass} fade-slide`;
+            // 初期状態は1枚目以外非表示
+            slide.style.display = i === 1 ? 'block' : 'none';
 
             const img = document.createElement('img');
             img.src = `${this.folder}/${String(i).padStart(2, '0')}.jpg`;
@@ -65,14 +72,15 @@ class Slider {
             img.loading = 'lazy';
 
             slide.appendChild(img);
-            fragment.appendChild(slide);
+            slideFragment.appendChild(slide);
         }
 
+        // 矢印ボタンの前に挿入
         const arrow = container.querySelector('.prev-arrow');
         if (arrow) {
-            container.insertBefore(fragment, arrow);
+            container.insertBefore(slideFragment, arrow);
         } else {
-            container.appendChild(fragment);
+            container.appendChild(slideFragment);
         }
 
         // ドット生成
@@ -80,6 +88,8 @@ class Slider {
         for (let i = 1; i <= this.count; i++) {
             const dot = document.createElement('button');
             dot.className = this.dotClass;
+            if (i === 1) dot.classList.add('active-dot'); // 1枚目をアクティブに
+            
             dot.setAttribute('role', 'tab');
             dot.setAttribute('aria-label', `写真 ${i}を表示`);
             dot.onclick = () => this.goToSlide(i);
@@ -87,12 +97,10 @@ class Slider {
         }
         dotsContainer.appendChild(dotsFragment);
 
-        // イベントリスナー
         this.setupEventListeners(container);
     }
 
     setupEventListeners(container) {
-        // タッチイベント
         container.addEventListener('touchstart', (e) => {
             this.touchStartX = e.touches[0].clientX;
             this.stopAutoPlay();
@@ -100,17 +108,14 @@ class Slider {
 
         container.addEventListener('touchend', (e) => {
             if (this.isTransitioning) return;
-
             const touchEndX = e.changedTouches[0].clientX;
             const diff = this.touchStartX - touchEndX;
-
             if (Math.abs(diff) > CONFIG.swipeThreshold) {
                 this.navigate(diff > 0 ? 1 : -1);
             }
             this.startAutoPlay();
         }, { passive: true });
 
-        // キーボードナビゲーション
         container.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
@@ -135,16 +140,14 @@ class Slider {
     }
 
     show(n) {
-        if (this.isTransitioning) return;
-        this.isTransitioning = true;
+        const container = document.getElementById(this.containerId);
+        const dotsContainer = document.getElementById(this.dotsContainerId);
+        if (!container || !dotsContainer) return;
 
-        const slides = document.getElementsByClassName(this.slideClass);
-        const dots = document.getElementsByClassName(this.dotClass);
+        const slides = container.getElementsByClassName(this.slideClass);
+        const dots = dotsContainer.getElementsByClassName(this.dotClass);
 
-        if (slides.length === 0) {
-            this.isTransitioning = false;
-            return;
-        }
+        if (slides.length === 0) return;
 
         if (n > slides.length) this.currentIndex = 1;
         else if (n < 1) this.currentIndex = slides.length;
@@ -156,12 +159,15 @@ class Slider {
             dot.setAttribute('aria-selected', 'false');
         });
 
-        slides[this.currentIndex - 1].style.display = 'block';
+        if (slides[this.currentIndex - 1]) {
+            slides[this.currentIndex - 1].style.display = 'block';
+        }
         if (dots[this.currentIndex - 1]) {
             dots[this.currentIndex - 1].classList.add('active-dot');
             dots[this.currentIndex - 1].setAttribute('aria-selected', 'true');
         }
 
+        this.isTransitioning = true;
         setTimeout(() => {
             this.isTransitioning = false;
             this.startAutoPlay();
@@ -184,175 +190,53 @@ class Slider {
 }
 
 // =====================================
-// 初期化
+// 初期化関数
 // =====================================
 let memoriesSlider, preshootSlider;
 
 async function initSliders() {
     try {
         const response = await fetch('config.json');
-        const jsonConfig = await response.json();
-        Object.assign(CONFIG.sliders, jsonConfig.sliders);
+        if (response.ok) {
+            const jsonConfig = await response.json();
+            Object.assign(CONFIG.sliders, jsonConfig.sliders);
+        }
     } catch (error) {
-        console.warn('config.jsonの読み込みに失敗しました。デフォルト設定を使用します。', error);
+        console.warn('config.json読み込みスキップ:', error);
     }
 
-    // 画像数の自動検出
     const [memoriesCount, preshootCount] = await Promise.all([
         detectImageCount(CONFIG.sliders.memories.folder),
         detectImageCount(CONFIG.sliders.preshoot.folder)
     ]);
 
-    if (memoriesCount > 0) CONFIG.sliders.memories.count = memoriesCount;
-    if (preshootCount > 0) CONFIG.sliders.preshoot.count = preshootCount;
+    const finalMemCount = memoriesCount > 0 ? memoriesCount : CONFIG.sliders.memories.count;
+    const finalPreCount = preshootCount > 0 ? preshootCount : CONFIG.sliders.preshoot.count;
 
-    console.log(`MEMORIES: ${CONFIG.sliders.memories.count}枚, PRESHOOT: ${CONFIG.sliders.preshoot.count}枚`);
-
-    // スライダー構築
     memoriesSlider = new Slider(
         'slideshow', 'dotsMemories', 'mySlides', 'dot',
-        CONFIG.sliders.memories.folder, CONFIG.sliders.memories.count
+        CONFIG.sliders.memories.folder, finalMemCount
     );
     memoriesSlider.build();
 
     preshootSlider = new Slider(
         'slideshowPre', 'dotsPreshoot', 'mySlidesPre', 'dotPre',
-        CONFIG.sliders.preshoot.folder, CONFIG.sliders.preshoot.count
+        CONFIG.sliders.preshoot.folder, finalPreCount
     );
     preshootSlider.build();
 
-    // 初期表示
     setTimeout(() => {
-        if (memoriesSlider) memoriesSlider.show(1);
-        if (preshootSlider) preshootSlider.show(1);
         hideLoading();
     }, 100);
 }
 
 // グローバル関数（HTML onclick用）
 function plusSlides(n) { if (memoriesSlider) memoriesSlider.navigate(n); }
-function currentSlide(n) { if (memoriesSlider) memoriesSlider.goToSlide(n); }
 function plusSlidesPre(n) { if (preshootSlider) preshootSlider.navigate(n); }
-function currentSlidePre(n) { if (preshootSlider) preshootSlider.goToSlide(n); }
 
 // =====================================
-// フェードインアニメーション
+// 各種UI制御
 // =====================================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// =====================================
-// モーダル制御
-// =====================================
-function initModals() {
-    const menuModal = document.getElementById('menuModal');
-    const imgModal = document.getElementById('imgModal');
-    const openMenuBtn = document.getElementById('openMenuModal');
-    const seatingChartImg = document.getElementById('seatingChartImg');
-    const expandedImg = document.getElementById('expandedImg');
-
-    // メニューを開く
-    openMenuBtn.addEventListener('click', () => {
-        menuModal.classList.add('is-active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    // 席次表を拡大
-    seatingChartImg.addEventListener('click', () => {
-        imgModal.classList.add('is-active');
-        expandedImg.src = seatingChartImg.src;
-        expandedImg.alt = seatingChartImg.alt;
-        document.body.style.overflow = 'hidden';
-    });
-
-    // 閉じるボタン
-    document.querySelectorAll('.modal .close-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.closest('.modal').classList.remove('is-active');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // 背景クリックで閉じる
-    [menuModal, imgModal].forEach(modal => {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('is-active');
-                document.body.style.overflow = '';
-            }
-        });
-    });
-
-    // メニューリンククリック
-    document.querySelectorAll('#menuModal a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            menuModal.classList.remove('is-active');
-            document.body.style.overflow = '';
-
-            const targetId = link.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 20;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Escキーで閉じる
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            menuModal.classList.remove('is-active');
-            imgModal.classList.remove('is-active');
-            document.body.style.overflow = '';
-        }
-    });
-}
-
-// =====================================
-// ローディング制御
-// =====================================
-function hideLoading() {
-    const overlay = document.getElementById('loadingOverlay');
-    if (!overlay) return;
-    overlay.style.opacity = '0';
-    setTimeout(() => {
-        overlay.style.display = 'none';
-    }, 300);
-}
-
-// =====================================
-// 初期化実行
-// =====================================
-document.addEventListener('DOMContentLoaded', () => {
-    // フェードイン監視
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // モーダル初期化
-    initModals();
-
-    // スライダー初期化
-    initSliders();
-});
-
-// --- Existing logic from  stays here ---
-//... detectImageCount, Slider Class, initSliders, etc.
-
 function initBiographyTabs() {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const bioContents = document.querySelectorAll('.bio-content');
@@ -360,25 +244,76 @@ function initBiographyTabs() {
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-target');
-
-            // Toggle Buttons
             tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            // Toggle Content
             bioContents.forEach(content => {
                 content.classList.remove('active');
-                if (content.id === targetId) {
-                    content.classList.add('active');
-                }
+                if (content.id === targetId) content.classList.add('active');
             });
         });
     });
 }
 
-// Update DOMContentLoaded to include the new feature
+function initModals() {
+    const menuModal = document.getElementById('menuModal');
+    const imgModal = document.getElementById('imgModal');
+    const openMenuBtn = document.getElementById('openMenuModal');
+    const seatingChartImg = document.getElementById('seatingChartImg');
+    const expandedImg = document.getElementById('expandedImg');
+
+    openMenuBtn.onclick = () => {
+        menuModal.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    seatingChartImg.onclick = () => {
+        imgModal.classList.add('is-active');
+        expandedImg.src = seatingChartImg.src;
+        document.body.style.overflow = 'hidden';
+    };
+
+    document.querySelectorAll('.modal .close-btn').forEach(btn => {
+        btn.onclick = function() {
+            this.closest('.modal').classList.remove('is-active');
+            document.body.style.overflow = '';
+        };
+    });
+
+    window.onclick = (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.classList.remove('is-active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    document.querySelectorAll('#menuModal a').forEach(link => {
+        link.onclick = (e) => {
+            const targetId = link.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                menuModal.classList.remove('is-active');
+                document.body.style.overflow = '';
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 20, behavior: 'smooth' });
+                }
+            }
+        };
+    });
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (!overlay) return;
+    overlay.style.opacity = '0';
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+}
+
+// =====================================
+// 初期化実行
+// =====================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Existing Observer logic for.fade-in
+    // フェードイン監視
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -390,8 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Initialize core functions
+    // UI初期化
     initModals();
+    initBiographyTabs();
     initSliders();
-    initBiographyTabs(); // New function call
 });
