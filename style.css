@@ -9,11 +9,8 @@
     --accent-color: #C5B4A3;
     --accent-hover: #B5A493;
     --white: #FFFFFF;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.08);
-    --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.12);
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
     --font-en: 'Cormorant Garamond', serif;
     --font-jp: 'Shippori Mincho', serif;
 }
@@ -32,7 +29,6 @@ body {
     line-height: 1.8;
     letter-spacing: 0.05em;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4 {
@@ -52,6 +48,7 @@ button {
     border: none;
     background: none;
     font-family: inherit;
+    outline: none;
 }
 
 a {
@@ -101,14 +98,6 @@ a {
     to { transform: rotate(360deg); }
 }
 
-.loading-overlay p {
-    margin-top: 20px;
-    font-family: var(--font-en);
-    color: var(--accent-color);
-    font-size: 1rem;
-    letter-spacing: 0.1em;
-}
-
 /* --- Container --- */
 .container {
     max-width: 600px;
@@ -124,26 +113,13 @@ a {
     z-index: 100;
     width: 44px;
     height: 44px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid var(--accent-color);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-light);
-    transition: all var(--transition-fast);
     -webkit-tap-highlight-color: transparent;
-}
-
-.menu-btn:hover {
-    background: var(--white);
-    transform: scale(1.05);
-}
-
-.menu-btn span {
-    font-size: 1.5rem;
-    color: var(--text-color);
-    line-height: 1;
 }
 
 /* --- Hero Section --- */
@@ -162,7 +138,7 @@ a {
     height: 60vh;
     max-height: 500px;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 4px;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-medium);
 }
@@ -171,7 +147,6 @@ a {
     font-size: clamp(2rem, 5vw, 2.8rem);
     font-style: italic;
     text-align: center;
-    margin-bottom: 0.5rem;
 }
 
 .hero-date {
@@ -184,8 +159,8 @@ a {
 /* --- Fade In Animation --- */
 .fade-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .fade-in.visible {
@@ -202,27 +177,7 @@ section {
     font-size: clamp(1.8rem, 4vw, 2.2rem);
     margin-bottom: 40px;
     text-align: center;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 2px;
-    background: var(--accent-color);
-    margin: 15px auto 0;
-}
-
-/* --- Greeting --- */
-.greeting-text {
-    text-align: center;
-    font-size: 0.95rem;
-    line-height: 2;
-}
-
-.greeting-text p {
-    margin: 1.5em 0;
+    letter-spacing: 0.15em;
 }
 
 /* --- Profile --- */
@@ -235,86 +190,49 @@ section {
 }
 
 .profile-img {
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
-    border: 3px solid var(--accent-color);
-    padding: 5px;
-    background: var(--white);
-    box-shadow: var(--shadow-light);
-}
-
-.profile-name {
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-}
-
-.profile-desc {
-    font-size: 0.95rem;
-    line-height: 1.9;
-    max-width: 400px;
+    border: 1px solid var(--accent-color);
+    padding: 4px;
 }
 
 /* --- Story --- */
 .story-item {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     gap: 20px;
 }
 
-.story-item:nth-child(even) {
-    flex-direction: row-reverse;
-}
+.story-item:nth-child(even) { flex-direction: row-reverse; }
 
-.story-img-box {
-    flex: 0 0 40%;
-}
+.story-img-box { flex: 0 0 40%; }
+.story-img-box img { border-radius: 4px; }
+.story-content { flex: 1; font-size: 0.85rem; }
+.story-content h4 { font-size: 1rem; margin-bottom: 5px; color: var(--accent-color); }
 
-.story-img-box img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: var(--shadow-light);
-}
-
-.story-content {
-    flex: 1;
-    font-size: 0.9rem;
-}
-
-.story-content h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--accent-color);
-}
-
-.story-item:nth-child(even) .story-content {
-    text-align: right;
-}
-
-/* --- Slideshow (High Fixed Height Strategy) --- */
+/* --- Slideshow (NO-FLEX & FIXED HEIGHT) --- */
 .slideshow-container {
     width: 100%;
-    max-width: 500px;
     position: relative;
     margin: auto;
-    /* 縦長写真(3:4など)が余裕を持って収まる高さを固定 */
-    height: 550px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.02); /* 空白部分が寂しくないよう極薄の背景 */
-    border-radius: 12px;
+    /* 高さを厳格に固定 */
+    height: 500px; 
+    overflow: hidden;
+    background-color: transparent;
 }
 
+/* スライドの表示切り替えで高さがブレないよう absolute で重ねる */
 .mySlides, .mySlidesPre {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%; /* コンテナいっぱいに広げる */
-    flex-direction: column;
+    height: 100%;
+    display: none; /* JSで display: flex に上書きされる */
     align-items: center;
     justify-content: center;
 }
@@ -325,77 +243,82 @@ section {
 }
 
 .mySlides img, .mySlidesPre img {
-    max-width: 100%;
+    max-width: 90%; /* 左右に少し余白 */
     max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: contain; /* アスペクト比を維持して収める */
-    border-radius: 8px;
-    box-shadow: var(--shadow-medium);
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
+/* --- Stylish Nav Buttons --- */
 .prev-arrow, .next-arrow {
-    cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(4px);
-    border-radius: 50%;
+    z-index: 10;
+    width: 50px;
+    height: 100%; /* クリックエリアを縦いっぱいに広げて操作性向上 */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
-    font-size: 20px;
-    color: var(--text-color);
-    box-shadow: var(--shadow-light);
+    transition: opacity 0.3s;
+    opacity: 0.6;
 }
 
-.prev-arrow { left: -10px; } /* コンテナの外側に少し出すとお洒落 */
-.next-arrow { right: -10px; }
+.prev-arrow:hover, .next-arrow:hover { opacity: 1; }
+
+/* 矢印を細いラインデザインに変更 */
+.prev-arrow::before, .next-arrow::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-top: 1px solid var(--text-color);
+    border-left: 1px solid var(--text-color);
+    display: block;
+}
+
+.prev-arrow::before { transform: rotate(-45deg); margin-left: 10px; }
+.next-arrow::before { transform: rotate(135deg); margin-right: 10px; }
+
+.prev-arrow { left: 0; }
+.next-arrow { right: 0; }
 
 .dots-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 12px;
 }
 
 .dot, .dotPre {
-    width: 6px;
-    height: 6px;
-    background-color: #ddd;
+    width: 4px;
+    height: 4px;
+    background-color: #D1D1D1;
     border-radius: 50%;
-    transition: all 0.3s;
+    transition: transform 0.3s, background-color 0.3s;
 }
 
 .active-dot {
     background-color: var(--accent-color);
-    width: 20px;
-    border-radius: 10px;
+    transform: scale(1.5);
 }
 
 /* --- Seating Chart --- */
-.seating-chart-area {
-    text-align: center;
-}
-
+.seating-chart-area { text-align: center; }
 .seating-chart-area img {
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 15px;
-    border: 2px solid var(--accent-color);
-    border-radius: 12px;
+    border-radius: 4px;
+    border: 1px solid #eee;
 }
 
 /* --- Share Photos --- */
 .share-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     align-items: center;
 }
 
@@ -404,24 +327,29 @@ section {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 300px;
-    padding: 15px;
-    background: var(--accent-color);
-    color: var(--white);
-    border-radius: 50px;
+    max-width: 280px;
+    padding: 18px;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 2px;
+    transition: all 0.3s;
 }
 
-.jp-label { font-size: 0.75rem; margin-top: 2px; opacity: 0.9; }
+.share-btn:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
 
 /* --- Footer --- */
 footer {
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px;
     font-family: var(--font-en);
-    color: #AAA;
+    font-size: 0.9rem;
+    color: #999;
 }
 
-/* --- Modal Base --- */
+/* --- Modal --- */
 .modal {
     display: none;
     position: fixed;
@@ -430,101 +358,30 @@ footer {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.92);
+    background-color: rgba(255, 255, 255, 0.98);
     align-items: center;
     justify-content: center;
 }
 
-.modal.is-active {
-    display: flex;
-}
+.modal.is-active { display: flex; }
 
-/* --- Menu Modal Content --- */
 .modal-content {
-    background-color: var(--bg-color);
-    padding: 40px 20px;
-    border-radius: 12px;
-    width: 85%;
+    width: 90%;
     max-width: 400px;
-    max-height: 85vh;
-    position: relative;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.modal-content .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 32px;
-    color: var(--text-color);
-}
-
-/* --- Menu List --- */
-.menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     text-align: center;
 }
 
-.menu-list li {
-    border-bottom: 1px solid rgba(197, 180, 163, 0.15);
-}
-
-.menu-list li:last-child {
-    border-bottom: none;
-}
-
+.menu-list { list-style: none; padding: 0; }
 .menu-list a {
-    display: flex;
-    flex-direction: column;
-    padding: 12px 0;
+    display: block;
+    padding: 15px;
+    font-size: 1.4rem;
     font-family: var(--font-en);
-    font-size: 1.2rem;
-    color: var(--text-color);
-    transition: background-color 0.2s;
 }
 
-.menu-list a .jp-nav {
-    font-size: 0.7rem;
-    color: #999;
-    margin-top: 2px;
-}
-
-/* --- Image Modal (Gallery Enlargement) --- */
-#imgModal .modal-content {
-    background: transparent;
-    padding: 0;
-    max-width: 95%;
-    max-height: 95vh;
-}
-
-#imgModal .close-btn {
-    color: #fff;
-}
-
-.modal-img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-/* --- Responsive Design --- */
+/* --- Responsive --- */
 @media (max-width: 480px) {
-    .hero-img { height: 50vh; }
-    /* スマホでは画面の高さに合わせてコンテナの高さを調整（縦に長すぎないよう） */
-    .slideshow-container { height: 450px; }
-    .story-item { flex-direction: column !important; text-align: center !important; }
-    .story-img-box { flex: 0 0 100%; }
-    .story-content { text-align: center !important; }
     section { padding: 60px 0; }
-    /* 矢印を少し内側に入れる */
-    .prev-arrow { left: 5px; }
-    .next-arrow { right: 5px; }
-}
-
-@media (min-width: 768px) {
-    /* PCなど広い画面ではコンテナを少し大きく */
-    .slideshow-container { height: 600px; }
+    .slideshow-container { height: 400px; } /* スマホでは高さを少し抑える */
+    .hero-img { height: 45vh; }
 }
