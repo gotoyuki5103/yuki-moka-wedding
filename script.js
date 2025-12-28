@@ -349,3 +349,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // スライダー初期化
     initSliders();
 });
+
+// --- Existing logic from  stays here ---
+//... detectImageCount, Slider Class, initSliders, etc.
+
+function initBiographyTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const bioContents = document.querySelectorAll('.bio-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+
+            // Toggle Buttons
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Toggle Content
+            bioContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === targetId) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+// Update DOMContentLoaded to include the new feature
+document.addEventListener('DOMContentLoaded', () => {
+    // Existing Observer logic for.fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Initialize core functions
+    initModals();
+    initSliders();
+    initBiographyTabs(); // New function call
+});
